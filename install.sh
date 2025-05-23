@@ -3,12 +3,14 @@
 source scripts/_meta.sh
 
 INSTALL_DEPS=false
+INSTALL_FONTS=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
   echo ""
   echo "Options:"
   echo "  --install-deps     Install required dependencies (Ubuntu 24.04 only)"
+  echo "  --install-fonts    Install required fonts"
   echo "  --help             Show this help message and exit"
 }
 
@@ -17,6 +19,9 @@ for arg in "$@"; do
   case $arg in
     --install-deps)
       INSTALL_DEPS=true
+      ;;
+    --install-fonts)
+      INSTALL_FONTS=true
       ;;
     --help)
       print_help
@@ -31,28 +36,30 @@ for arg in "$@"; do
 done
 
 if $INSTALL_DEPS; then
-    info "Installing dependencies..."
+  info "Installing dependencies..."
 
-    info "Installing applications dependencies from archive..."
-    sudo add-apt-repository ppa:matthew-kosarek/miracle-wm
-    sudo apt update
-    sudo apt install miracle-wm atfs wofi swaylock kitty network-manager-gnome
+  info "Installing applications dependencies from archive..."
+  sudo add-apt-repository ppa:matthew-kosarek/miracle-wm
+  sudo apt update
+  sudo apt install miracle-wm atfs wofi swaylock kitty network-manager-gnome
 
-    info "Installing development dependencis form archive..."
-    sudo apt install golang
-    source $PWD/scripts/pyenv.sh
+  info "Installing development dependencis form archive..."
+  sudo apt install golang
+  source $PWD/scripts/pyenv.sh
 
-    info "Installing snaps..."
-    sudo snap install clion --classic
-    sudo snap install emacs --classic
+  info "Installing snaps..."
+  sudo snap install clion --classic
+  sudo snap install emacs --classic
 
-    source $PWD/scripts/nushell.sh
-    source $PWD/scripts/carapace.sh
-    source $PWD/scripts/nwg-panel.sh
+  source $PWD/scripts/nushell.sh
+  source $PWD/scripts/carapace.sh
+  source $PWD/scripts/nwg-panel.sh
 fi
 
-info "Installing fonts..."
-source $PWD/scripts/fonts.sh
+if $INSTALL_FONTS; then
+  info "Installing fonts..."
+  source $PWD/scripts/fonts.sh
+fi
 
 info "Copy bashrc..."
 cp -f "bashrc" "$HOME/.bashrc"
