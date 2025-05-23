@@ -1,0 +1,87 @@
+/***** SUGGESTED TO CHANGE CAREFULLY *****/
+
+/* Recommended if panel "height" unset or smaller then your theme default button height */
+button {
+    margin: 4px
+}
+
+/* SwayTaskBar and SwayWorkspaces use custom widgets, that need this and the next name
+   to highlight currently focused task / workspace. */
+#task-box {
+    padding-left: 4px;
+    padding-right: 4px
+}
+
+#task-box-focused {
+    background-color: rgba (255, 255, 255, 0.12);
+    padding-left: 4px;
+    padding-right: 4px
+}
+
+
+/***** MODIFY TO YOUR TASTE *****/
+
+/* Sample button in sample config w/ no background nor border */
+#button-custom {
+    background: #6272A4;
+    border: 0;
+}
+
+/* Top panel in sample config uses this name */
+#panel-top {
+    background: #282A36;
+    color: #F8F8F2;
+}
+
+/* Bottom panel in sample config uses this name */
+#panel-bottom {
+    background: #282A36;
+    color: #F8F8F2;
+}
+
+/* Controls window in sample config uses this name */
+#controls-window {
+    border-radius: 15px;
+    background: #44475A;
+    color: #F8F8F2;
+}
+#controls-window scale value {
+    color: #eeeeee
+}
+
+/* Brightness slider popup window in sample config uses this name */
+#brightness-popup {
+    border-radius: 15px;
+    background: #36364f;
+    color: #eeeeee
+}
+#brightness-popup box {
+    padding: 15px;
+}
+
+/* Executors usually behave better in monospace fonts */
+#executor-label {
+    font-family: monospace
+}
+
+/* and so does the Clock */
+#clock {
+    font-family: 'Noto Sans';
+    font-size: 16px
+}
+
+#calendar-window {
+    background: #44475A;
+    color: #F8F8F2;
+}
+
+
+/* Sample executor-weather uses "css-name": "weather" */
+#weather {
+    font-size: 16px
+}
+
+/* Playerctl */
+#playerctl-label {
+    color: #F8F8F2;
+}

@@ -1,2 +1,42 @@
-# dotfiles
-My dotfiles for a dracula themed miracle-wm
+# Matt's Dotfiles for Miracle on Ubuntu
+These dotfiles are tailored for [miracle-wm](https://github.com/miracle-wm-org/miracle-wm)
+on Ubuntu 24.04. The installation is geared toward Ubuntu 24.04 users, but you may extend
+it to include whatever you personally like. These dotfiles are very much geared towards
+my (corporate-ish) development life that largely revolves around C++, web, python,
+and other types of development.
+
+Some dependencies that are not packaged in the Ubuntu archive are built from
+source here.
+
+I very much enjoy Dracula theming, so that's what you'll be getting if you
+install this 🧛
+
+## Screenshot
+
+## Software
+- [swaylock](https://github.com/swaywm/swaylock) for lockscreen
+- [nwg-bar](https://github.com/nwg-piotr/nwg-bar) for logout bar
+- [nwg-panel](https://github.com/nwg-piotr/nwg-panel) for top and bottom panel
+- [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
+- [nushell](https://www.nushell.sh/) for bash replacement
+- [carapace](https://carapace.sh/) for completions in nushell
+- [grimshot](https://man.archlinux.org/man/grimshot.1.en) for screenshots
+- [nm-connection-manager] for network control
+
+For development:
+- [pyenv](https://github.com/pyenv/pyenv)
+
+## Install
+First, clone the repo:
+```sh
+git clone https://git.matthewkosarek.xyz/dotfiles.git/
+```
+
+Next, install:
+```sh
+cd dotfiles
+./install.sh
+```
+
+## Todos
+- Add a dracula theme for nushell
