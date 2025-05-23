@@ -21,10 +21,14 @@ install this 🧛
 - [nushell](https://www.nushell.sh/) for bash replacement
 - [carapace](https://carapace.sh/) for completions in nushell
 - [grimshot](https://man.archlinux.org/man/grimshot.1.en) for screenshots
-- [nm-connection-manager] for network control
+- [nm-connection-manager](https://wiki.gnome.org/Projects/NetworkManager) for network control
 
 For development:
 - [pyenv](https://github.com/pyenv/pyenv)
+
+## Fonts
+- [Iosevka](https://github.com/be5invis/Iosevka)
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 
 ## Install
 First, clone the repo:
