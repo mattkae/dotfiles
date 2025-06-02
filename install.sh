@@ -3,14 +3,17 @@
 source scripts/_meta.sh
 
 INSTALL_DEPS=false
+INSTALL_MIRACLE_WM=false
 INSTALL_FONTS=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
   echo ""
   echo "Options:"
-  echo "  --install-deps     Install required dependencies (Ubuntu 24.04 only)"
-  echo "  --install-fonts    Install required fonts"
+  echo "  --install-deps          Install required dependencies (Ubuntu 24.04 only)"
+  echo "  --install-fonts         Install required fonts"
+  echo "  --install-fonts         Install miracle-wm from the archive (Debian only)"
+  echo "  --install-miracle-wm    Install miracle-wm from the archive (Debian only)"
   echo "  --help             Show this help message and exit"
 }
 
@@ -19,6 +22,9 @@ for arg in "$@"; do
   case $arg in
     --install-deps)
       INSTALL_DEPS=true
+      ;;
+    --install-miracle-wm)
+      INSTALL_MIRACLE_WM=true
       ;;
     --install-fonts)
       INSTALL_FONTS=true
@@ -35,24 +41,20 @@ for arg in "$@"; do
   esac
 done
 
-if $INSTALL_DEPS; then
-  info "Installing dependencies..."
-
-  info "Installing applications dependencies from archive..."
+if $INSTALL_MIRACLE_WM; then
+  info "Installing miracle-wm..."
   sudo add-apt-repository ppa:matthew-kosarek/miracle-wm
   sudo apt update
-  sudo apt install miracle-wm atfs wofi swaylock kitty network-manager-gnome
+  sudo apt install miracle-wm
+fi
+
+if $INSTALL_DEPS; then
+  info "Installing applications dependencies from archive..."
+  sudo apt install atfs wofi swaylock swww bat kitty network-manager-gnome fish
 
   info "Installing development dependencis form archive..."
   sudo apt install golang
-  source $PWD/scripts/pyenv.sh
 
-  info "Installing snaps..."
-  sudo snap install clion --classic
-  sudo snap install emacs --classic
-
-  source $PWD/scripts/nushell.sh
-  source $PWD/scripts/carapace.sh
   source $PWD/scripts/nwg-panel.sh
 fi
 
@@ -65,21 +67,28 @@ info "Copy bashrc..."
 cp -f "bashrc" "$HOME/.bashrc"
 
 info "Copying kitty config..."
-cp -rf "config/kitty" "$HOME/.config/kitty"
+cp -rf "config/kitty" "$HOME/.config/"
 
-info "Copying nushell config..."
-cp -rf "config/nushell" "$HOME/.config/nushell"
+info "Copying fish config..."
+cp -rf "config/fish" "$HOME/.config/"
 
 info "Copying nwg-bar config..."
-cp -rf "config/nwg-bar" "$HOME/.config/nwg-bar"
+cp -rf "config/nwg-bar" "$HOME/.config"
 
 info "Copying nwg-panel config..."
-cp -rf "config/nwg-panel" "$HOME/.config/nwg-panel"
+cp -rf "config/nwg-panel" "$HOME/.config"
 
 info "Copying swaylock config..."
-cp -rf "config/swaylock" "$HOME/.config/swaylock"
+cp -rf "config/swaylock" "$HOME/.config"
 
 info "Copying wofi config..."
-cp -rf "config/wofi" "$HOME/.config/wofi"
+cp -rf "config/wofi" "$HOME/.config"
+
+info "Copying newsboat config..."
+mkdir -p "$HOME/.config/.newsboat"
+cp "config/newsboat/config" "$HOME/.config/.newsboat/"
+
+info "Copying miracle-wm config..."
+cp -rf "config/miracle-wm" "$HOME/.config"
 
 success "Installation complete"

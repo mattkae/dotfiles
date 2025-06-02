@@ -7,6 +7,8 @@ if [[ $EUID -eq 0 ]]; then
    error "Please do not run this script as root. It will use sudo when needed."
 fi
 
+PREVIOUS_DIR=$(pwd)
+
 info "Updating package list..."
 sudo apt update
 
@@ -56,3 +58,5 @@ info "Installing nwg-bar..."
 sudo make install
 
 info "nwg-bar installation complete!"
+
+cd "$PREVIOUS_DIR"

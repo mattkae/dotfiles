@@ -15,16 +15,15 @@ install this 🧛
 
 ## Software
 - [swaylock](https://github.com/swaywm/swaylock) for lockscreen
+- [swww](https://github.com/LGFae/swww) for wallpaper
 - [nwg-bar](https://github.com/nwg-piotr/nwg-bar) for logout bar
 - [nwg-panel](https://github.com/nwg-piotr/nwg-panel) for top and bottom panel
 - [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
-- [nushell](https://www.nushell.sh/) for bash replacement
-- [carapace](https://carapace.sh/) for completions in nushell
+- [fish](https://fishshell.com/) for shell
 - [grimshot](https://man.archlinux.org/man/grimshot.1.en) for screenshots
 - [nm-connection-manager](https://wiki.gnome.org/Projects/NetworkManager) for network control
-
-For development:
-- [pyenv](https://github.com/pyenv/pyenv)
+- [bat](https://github.com/sharkdp/bat) for better `cat`
+- [newsboat](https://github.com/newsboat/newsboat) for RSS reading
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
@@ -42,5 +41,6 @@ cd dotfiles
 ./install.sh
 ```
 
-## Todos
-- Add a dracula theme for nushell
+## Resources
+This configuration looks for resources at the following directories:
+- `~/.local/share/m

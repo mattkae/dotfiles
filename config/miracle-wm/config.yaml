@@ -55,14 +55,11 @@ outer_gaps:
   y: 10
 startup_apps:
   - command: waybar
-  - command: swaybg -i /home/matthew-kosarek/Downloads/uwp4618516.jpeg
-    restart_on_death: true
-    in_systemd_scope: true
+  - command: swww-daemon
+  - command: swww img /home/matthew/Downloads/deer.gif --resize fit --transition-duration 2 --transition-type wave
   - command: swaync
-    restart_on_death: true
-    in_systemd_scope: true
-  - command: systemd-run --user /usr/libexec/xdg-desktop-portal --replace
-    in_systemd_scope: true
+  #- command: systemd-run --user /usr/libexec/xdg-desktop-portal --replace
+  #  in_systemd_scope: true
 terminal: foot
 resize_jump: 50
 border:

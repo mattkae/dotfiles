@@ -2,6 +2,12 @@
 
 set -e
 
+# Ensure script is run as a user (not root), but sudo is available
+if [[ $EUID -eq 0 ]]; then
+   error "Please do not run this script as root. It will use sudo when needed."
+fi
+
+PREVIOUS_DIR=$(pwd)
 
 # Setup the directories
 FONT_DIR="$HOME/.local/share/fonts"
@@ -40,3 +46,5 @@ rm $JBMONO_FILE
 # Update font cache
 info "Updating font cache..."
 fc-cache -f "$FONT_DIR"
+
+cd "$PREVIOUS_DIR"

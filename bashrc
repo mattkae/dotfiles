@@ -50,9 +50,7 @@ complete -cf sudo
 # it regains control.  #65623
 # http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
 shopt -s checkwinsize
-
 shopt -s expand_aliases
-
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
@@ -89,11 +87,8 @@ fi
 export MIR_SYMBOLS_MAP_GENERATOR_CLANG_SO_PATH=/usr/lib/llvm-19/lib/libclang-19.so.1
 export MIR_SYMBOLS_MAP_GENERATOR_CLANG_LIBRARY_PATH=/usr/lib/llvm-19/lib
 
-# Update path with my scripts and programs directory.
-# Also update the path with my typical path to flutter and pyenv.
-export PATH="${PATH}:$HOME/.local/bin:~/Programs:$HOME/Github/flutter/bin"
-export PATH="$PATH":"$HOME/.pub-cache/bin"
-export PATH="$HOME/Programs/depot_tools:$HOME/.local/bin:$PATH"
+# Update path to incldue ~/.local/bin
+export PATH="${PATH}:$HOME/.local/bin"
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
