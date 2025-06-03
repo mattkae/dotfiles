@@ -20,6 +20,8 @@ install this 🧛
 - [nwg-panel](https://github.com/nwg-piotr/nwg-panel) for top and bottom panel
 - [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
 - [fish](https://fishshell.com/) for shell
+- [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish) for fish shell framework
+- [bobthefish](https://github.com/oh-my-fish/theme-bobthefish) for fish theming
 - [grimshot](https://man.archlinux.org/man/grimshot.1.en) for screenshots
 - [nm-connection-manager](https://wiki.gnome.org/Projects/NetworkManager) for network control
 - [bat](https://github.com/sharkdp/bat) for better `cat`
@@ -27,7 +29,7 @@ install this 🧛
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
-- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+- [JetBrains Mono Nerd](https://github.com/ryanoasis/nerd-fonts)
 
 ## Install
 First, clone the repo:

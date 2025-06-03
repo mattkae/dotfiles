@@ -56,6 +56,8 @@ if $INSTALL_DEPS; then
   sudo apt install golang
 
   source $PWD/scripts/nwg-panel.sh
+  source $PWD/scripts/fish.sh
+  source $PWD/scripts/jetbains-mono-nerd.sh
 fi
 
 if $INSTALL_FONTS; then
