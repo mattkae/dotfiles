@@ -18,6 +18,7 @@ install this 🧛
 - [swww](https://github.com/LGFae/swww) for wallpaper
 - [nwg-bar](https://github.com/nwg-piotr/nwg-bar) for logout bar
 - [nwg-panel](https://github.com/nwg-piotr/nwg-panel) for top and bottom panel
+- [waybar](https://github.com/Alexays/Waybar) as an optional alternative panel
 - [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
 - [fish](https://fishshell.com/) for shell
 - [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish) for fish shell framework

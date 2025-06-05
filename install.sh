@@ -80,6 +80,9 @@ cp -rf "config/nwg-bar" "$HOME/.config"
 info "Copying nwg-panel config..."
 cp -rf "config/nwg-panel" "$HOME/.config"
 
+info "Copying waybar config..."
+cp -rf "config/waybar" "$HOME/.config"
+
 info "Copying swaylock config..."
 cp -rf "config/swaylock" "$HOME/.config"
 

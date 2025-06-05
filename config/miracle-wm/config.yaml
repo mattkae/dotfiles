@@ -48,19 +48,21 @@ custom_actions:
       - shift
       - primary
 inner_gaps:
-  x: 8
-  y: 8
-outer_gaps:
   x: 10
   y: 10
+outer_gaps:
+  x: 5
+  y: 5
 startup_apps:
   - command: waybar
   - command: swww-daemon
-  - command: swww img /home/matthew/Downloads/deer.gif --resize fit --transition-duration 2 --transition-type wave
+  - command: swww img /home/matthew/Downloads/wp14988118-village-wallpapers-1.webp --transition-duration 2 --transition-type wave
   - command: swaync
+  - command: systemd-run --user /usr/libexec/xdg-desktop-portal --replace
+    in_systemd_scope: true
   #- command: systemd-run --user /usr/libexec/xdg-desktop-portal --replace
   #  in_systemd_scope: true
-terminal: foot
+terminal: kitty
 resize_jump: 50
 border:
   size: 2
