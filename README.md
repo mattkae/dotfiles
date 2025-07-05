@@ -15,7 +15,7 @@ install this 🧛
 
 ## Software
 - [swaylock](https://github.com/swaywm/swaylock) for lockscreen
-- [swww](https://github.com/LGFae/swww) for wallpaper
+- [swaybg](https://github.com/swaywm/swaybg) for wallpaper
 - [nwg-bar](https://github.com/nwg-piotr/nwg-bar) for logout bar
 - [nwg-panel](https://github.com/nwg-piotr/nwg-panel) for top and bottom panel
 - [waybar](https://github.com/Alexays/Waybar) as an optional alternative panel
