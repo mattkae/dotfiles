@@ -11,7 +11,7 @@ custom_actions:
     modifiers:
       - shift
       - primary
-  - command: swaylock -i /home/matthew-kosarek/Git/dracula/wallpaper/second-collection/illustrations/trees-and-mountains/dracula-mnt-282a36.png
+  - command: swaylock
     action: down
     key: KEY_L
     modifiers:
@@ -54,12 +54,9 @@ outer_gaps:
   x: 5
   y: 5
 startup_apps:
-  - command: nwg-panel
-    restart_on_death: true
-  - command: swaybg -i /home/matthew/Downloads/wp14988118-village-wallpapers-1.webp
-    restart_on_death: true
+  - command: ~/.local/bin/launch-swaybg.sh
   - command: swaync
-  - command: systemd-run --user /usr/libexec/xdg-desktop-portal --replace
+  - command: systemd-run --user /usr/local/libexec/xdg-desktop-portal-wlr --replace
     in_systemd_scope: true
 terminal: kitty
 resize_jump: 50

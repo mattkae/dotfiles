@@ -1,10 +1,11 @@
 #!/bin/bash
 
-source scripts/_meta.sh
+. scripts/_meta.sh
 
 INSTALL_DEPS=false
 INSTALL_MIRACLE_WM=false
 INSTALL_FONTS=false
+INSTALL_BASHRC=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
@@ -12,7 +13,8 @@ print_help() {
   echo "Options:"
   echo "  --install-deps          Install required dependencies (Ubuntu 24.04 only)"
   echo "  --install-fonts         Install required fonts"
-  echo "  --install-fonts         Install miracle-wm from the archive (Debian only)"
+  echo "  --install-fonts         Install fonts"
+  echo "  --install-bashrc        Install bashrc too"
   echo "  --install-miracle-wm    Install miracle-wm from the archive (Debian only)"
   echo "  --help             Show this help message and exit"
 }
@@ -29,6 +31,9 @@ for arg in "$@"; do
     --install-fonts)
       INSTALL_FONTS=true
       ;;
+    --install-bashrc)
+      INSTALL_BASHRC=true
+      ;;
     --help)
       print_help
       exit 0
@@ -40,6 +45,8 @@ for arg in "$@"; do
       ;;
   esac
 done
+
+. $PWD/scripts/assets.sh
 
 if $INSTALL_MIRACLE_WM; then
   info "Installing miracle-wm..."
@@ -55,30 +62,25 @@ if $INSTALL_DEPS; then
   info "Installing development dependencis form archive..."
   sudo apt install golang
 
-  source $PWD/scripts/nwg-panel.sh
-  source $PWD/scripts/fish.sh
-  source $PWD/scripts/jetbains-mono-nerd.sh
+  . $PWD/scripts/fish.sh
+  . $PWD/scripts/jetbains-mono-nerd.sh
 fi
 
 if $INSTALL_FONTS; then
   info "Installing fonts..."
-  source $PWD/scripts/fonts.sh
+  . $PWD/scripts/fonts.sh
 fi
 
-info "Copy bashrc..."
-cp -f "bashrc" "$HOME/.bashrc"
+if $INSTALL_BASHRC; then
+  info "Copy bashrc..."
+  cp -f "bashrc" "$HOME/.bashrc"
+fi
 
 info "Copying kitty config..."
 cp -rf "config/kitty" "$HOME/.config/"
 
 info "Copying fish config..."
 cp -rf "config/fish" "$HOME/.config/"
-
-info "Copying nwg-bar config..."
-cp -rf "config/nwg-bar" "$HOME/.config"
-
-info "Copying nwg-panel config..."
-cp -rf "config/nwg-panel" "$HOME/.config"
 
 info "Copying waybar config..."
 cp -rf "config/waybar" "$HOME/.config"
@@ -95,5 +97,9 @@ cp "config/newsboat/config" "$HOME/.config/.newsboat/"
 
 info "Copying miracle-wm config..."
 cp -rf "config/miracle-wm" "$HOME/.config"
+
+info "Copying local bin files..."
+mkdir -p ~/.local/bin
+cp -r local/bin/* ~/.local/bin/ 
 
 success "Installation complete"

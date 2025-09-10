@@ -16,8 +16,6 @@ install this 🧛
 ## Software
 - [swaylock](https://github.com/swaywm/swaylock) for lockscreen
 - [swaybg](https://github.com/swaywm/swaybg) for wallpaper
-- [nwg-bar](https://github.com/nwg-piotr/nwg-bar) for logout bar
-- [nwg-panel](https://github.com/nwg-piotr/nwg-panel) for top and bottom panel
 - [waybar](https://github.com/Alexays/Waybar) as an optional alternative panel
 - [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
 - [fish](https://fishshell.com/) for shell
@@ -44,6 +42,7 @@ cd dotfiles
 ./install.sh
 ```
 
-## Resources
-This configuration looks for resources at the following directories:
-- `~/.local/share/m
+## Directories
+- `~/.local/bin`: local scripts
+- `~/.local/src`: local source projects
+- `~/.local/share/wallpapers`: images for background and lockscreen
