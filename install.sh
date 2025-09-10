@@ -57,7 +57,7 @@ fi
 
 if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
-  sudo apt install atfs wofi swaylock swww bat kitty network-manager-gnome fish
+  sudo apt install atfs wofi swaylock swww bat fdfind kitty network-manager-gnome fish
 
   info "Installing development dependencis form archive..."
   sudo apt install golang

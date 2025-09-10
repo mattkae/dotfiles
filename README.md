@@ -24,6 +24,7 @@ install this 🧛
 - [grimshot](https://man.archlinux.org/man/grimshot.1.en) for screenshots
 - [nm-connection-manager](https://wiki.gnome.org/Projects/NetworkManager) for network control
 - [bat](https://github.com/sharkdp/bat) for better `cat`
+- [fdfind](https://github.com/sharkdp/fd) for better `find`
 - [newsboat](https://github.com/newsboat/newsboat) for RSS reading
 
 ## Fonts
@@ -33,7 +34,7 @@ install this 🧛
 ## Install
 First, clone the repo:
 ```sh
-git clone https://git.matthewkosarek.xyz/dotfiles.git/
+git clone git@github.com:mattkae/dotfiles.git
 ```
 
 Next, install:

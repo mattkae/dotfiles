@@ -11,3 +11,6 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/Github/flutter/bin:$HOME/Programs/depo
 
 # Export flutter as an environment variable
 export FLUTTER="$HOME/Github/flutter/bin/flutter"
+
+alias fd="fdfind"
+alias cat="batcat"
