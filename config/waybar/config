@@ -16,7 +16,6 @@
 		"cpu",
 		"temperature",
 		"battery",
-		"sway/language",
 		"tray",
 		"clock#date",
 		"clock#time"
@@ -70,12 +69,6 @@
 		}
 	},
 
-	"sway/language": {
-		"format": " {}",
-		"min-length": 5,
-		"on-click": "swaymsg 'input * xkb_switch_layout next'",
-		"tooltip": false
-	},
 
 	"memory": {
 		"interval": 5,
