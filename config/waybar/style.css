@@ -179,11 +179,17 @@
 #battery {
 	background: @battery;
 	color: @white;
-  border-radius: 0pt 2pt 2pt 0pt;
 }
 
 #tray {
-	background: @date;
+}
+
+#custom-weather {
+    background: @gray;
+    color: @white;
+    padding-right: 8pt;
+    padding-left: 4pt;
+    border-radius: 0pt 2pt 2pt 0pt;
 }
 
 #clock.date {

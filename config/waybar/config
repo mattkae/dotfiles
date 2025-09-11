@@ -2,6 +2,7 @@
 	"layer": "top",
 	"position": "top",
 	"margin": "4",
+  "spacing": "4",
 
 	"modules-left": [
 		"sway/mode",
@@ -16,12 +17,20 @@
 		"cpu",
 		"temperature",
 		"battery",
+    "custom/weather",
 		"tray",
 		"clock#date",
 		"clock#time"
 	],
 
 	// Modules
+
+  "custom/weather": {
+    "format": "{} ",
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "interval": 600,
+    //"on-click": "bash -e ~/.config/waybar/scripts/weather-details.sh"
+  },
 
 	"battery": {
 		"interval": 10,
@@ -141,7 +150,6 @@
 
 	"tray": {
 		"icon-size": 18
-		//"spacing": 10
 	}
 }
 
