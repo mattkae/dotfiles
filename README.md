@@ -16,7 +16,8 @@ install this 🧛
 ## Software
 - [swaylock](https://github.com/swaywm/swaylock) for lockscreen
 - [swaybg](https://github.com/swaywm/swaybg) for wallpaper
-- [waybar](https://github.com/Alexays/Waybar) as an optional alternative panel
+- [wofi](https://github.com/SimplyCEO/wofi): for launcher
+- [waybar](https://github.com/Alexays/Waybar) for top panel
 - [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
 - [fish](https://fishshell.com/) for shell
 - [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish) for fish shell framework
