@@ -19,6 +19,7 @@ install this 🧛
 - [wofi](https://github.com/SimplyCEO/wofi): for launcher
 - [waybar](https://github.com/Alexays/Waybar) for top panel
 - [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
+- [wlogout](https://github.com/ArtsyMacaw/wlogout) for logout
 - [fish](https://fishshell.com/) for shell
 - [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish) for fish shell framework
 - [bobthefish](https://github.com/oh-my-fish/theme-bobthefish) for fish theming
@@ -31,6 +32,9 @@ install this 🧛
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
 - [JetBrains Mono Nerd](https://github.com/ryanoasis/nerd-fonts)
+
+## Icons
+- [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
 ## Install
 First, clone the repo:

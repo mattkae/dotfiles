@@ -16,6 +16,7 @@ custom_actions:
     key: KEY_L
     modifiers:
       - primary
+      - shift
   - command: pamixer -d 10
     action: down
     key: KEY_VOLUMEDOWN
@@ -41,7 +42,7 @@ custom_actions:
     key: KEY_BRIGHTNESSUP
     modifiers:
       []
-  - command: nwg-bar
+  - command: wlogout --protocol layer-shell
     action: down
     key: KEY_E
     modifiers:
