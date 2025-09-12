@@ -28,6 +28,8 @@ install this 🧛
 - [bat](https://github.com/sharkdp/bat) for better `cat`
 - [fdfind](https://github.com/sharkdp/fd) for better `find`
 - [newsboat](https://github.com/newsboat/newsboat) for RSS reading
+- [pamixer](https://github.com/cdemoulins/pamixer) for volume adjustment
+- [brightnessctl](https://github.com/Hummer12007/brightnessctl) for brightness management
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
