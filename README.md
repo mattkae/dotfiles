@@ -42,7 +42,11 @@ First, clone the repo:
 git clone git@github.com:mattkae/dotfiles.git
 ```
 
+**WARNING**: This next step will be destructive to existing configuration files,
+so please run at your own risk.
+
 Next, install:
+
 ```sh
 cd dotfiles
 ./install.sh
