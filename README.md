@@ -11,6 +11,9 @@ source here.
 I very much enjoy Dracula theming, so that's what you'll be getting if you
 install this 🧛
 
+Note that this configuration will only work with the latest version of miracle in the
+repository, so this is more of a rolling release than anything.
+
 ## Screenshot
 
 ## Software
