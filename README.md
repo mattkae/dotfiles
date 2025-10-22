@@ -16,6 +16,7 @@ install this 🧛
 ## Software
 - [swaylock](https://github.com/swaywm/swaylock) for lockscreen
 - [swaybg](https://github.com/swaywm/swaybg) for wallpaper
+- [swaync](https://github.com/ErikReider/SwayNotificationCenter) for notifications
 - [wofi](https://github.com/SimplyCEO/wofi): for launcher
 - [waybar](https://github.com/Alexays/Waybar) for top panel
 - [kitty](https://sw.kovidgoyal.net/kitty/) for terminal

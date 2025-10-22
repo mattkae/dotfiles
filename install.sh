@@ -57,7 +57,7 @@ fi
 
 if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
-  sudo apt install atfs wofi swaylock swww bat fdfind kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl
+  sudo apt install atfs wofi swaylock swww bat fdfind kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center
 
   info "Installing development dependencis form archive..."
   sudo apt install golang
@@ -93,6 +93,11 @@ cp -rf "config/wofi" "$HOME/.config"
 
 info "Copying wlogout config..."
 cp -rf "config/wlogout" "$HOME/.config"
+
+info "Copying gtk config..."
+. ./scripts/gtk.sh
+cp -rf "config/gtk-3.0" "$HOME/.config"
+cp -rf "config/gtk-4.0" "$HOME/.config"
 
 info "Copying newsboat config..."
 mkdir -p "$HOME/.config/.newsboat"
