@@ -1,6 +1,6 @@
 # Matt's Dotfiles for Miracle on Ubuntu
 These dotfiles are tailored for [miracle-wm](https://github.com/miracle-wm-org/miracle-wm)
-on Ubuntu 24.04. The installation is geared toward Ubuntu 24.04 users, but you may extend
+on Ubuntu 25.10. The installation is geared toward Ubuntu 25.10 users, but you may extend
 it to include whatever you personally like. These dotfiles are very much geared towards
 my (corporate-ish) development life that largely revolves around C++, web, python,
 and other types of development.
@@ -59,3 +59,8 @@ cd dotfiles
 - `~/.local/bin`: local scripts
 - `~/.local/src`: local source projects
 - `~/.local/share/wallpapers`: images for background and lockscreen
+
+## Configurations
+The primary configuration is `~/.config/miracle-wm/config.yaml`. Users may place
+any machine-specific configuration in `~/config/miracle-wm/user-config.yaml`.
+For example, I run `xdg-desktop-portal-wlr` there so that screensharing works.

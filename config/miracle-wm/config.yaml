@@ -1,4 +1,6 @@
 action_key: meta
+includes:
+  - ~/.config/miracle-wm/user-config.yaml
 custom_actions:
   - command: wofi --show=drun
     action: down
@@ -57,22 +59,9 @@ outer_gaps:
 startup_apps:
   - command: ~/.local/bin/launch-swaybg.sh
   - command: swaync
-  - command: systemd-run --user /usr/local/libexec/xdg-desktop-portal-wlr --replace
-    in_systemd_scope: true
 terminal: kitty
 resize_jump: 50
 border:
   size: 2
   color: 0xbd93f9ff
   focus_color: 0x50fa7bff
-animations:
-  - event: window_open
-    type: fade_in
-    function: linear
-    duration: 0.300000012
-    c1: 1.20000005
-    c2: 1.83000004
-    c3: 2.20000005
-    c4: 2.09439516
-    n1: 7.5625
-    d1: 2.75
