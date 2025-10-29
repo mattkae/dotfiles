@@ -2,6 +2,16 @@
 
 . scripts/_meta.sh
 
+read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
+
+choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
+if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
+    info "Installation of Matt's dotfiles is starting..."
+else
+    error "Installation was aborted."
+    exit 0
+fi
+
 INSTALL_DEPS=false
 INSTALL_MIRACLE_WM=false
 INSTALL_FONTS=false
