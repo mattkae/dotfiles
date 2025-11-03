@@ -69,15 +69,15 @@ if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
   sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center
 
-  info "Installing development dependencis form archive..."
-  sudo apt install golang
+  info "Installing development dependencies from archive..."
+  sudo apt install golang pyenv
 
   . $PWD/scripts/fish.sh
-  . $PWD/scripts/jetbains-mono-nerd.sh
 fi
 
 if $INSTALL_FONTS; then
   info "Installing fonts..."
+  . $PWD/scripts/jetbains-mono-nerd.sh
   . $PWD/scripts/fonts.sh
 fi
 
