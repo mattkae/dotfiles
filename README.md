@@ -55,7 +55,7 @@ Next, install:
 
 ```sh
 cd dotfiles
-./install.sh
+./install.sh [--install-deps] [--install-fonts]
 ```
 
 ## Directories
@@ -67,3 +67,6 @@ cd dotfiles
 The primary configuration is `~/.config/miracle-wm/config.yaml`. Users may place
 any machine-specific configuration in `~/config/miracle-wm/user-config.yaml`.
 For example, I run `xdg-desktop-portal-wlr` there so that screensharing works.
+
+## Fish
+- Users may play custom fish configuration in `~/.config/fish/user.sh`.
