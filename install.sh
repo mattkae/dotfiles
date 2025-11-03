@@ -2,16 +2,6 @@
 
 . scripts/_meta.sh
 
-read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
-
-choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
-if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
-    info "Installation of Matt's dotfiles is starting..."
-else
-    error "Installation was aborted."
-    exit 0
-fi
-
 INSTALL_DEPS=false
 INSTALL_MIRACLE_WM=false
 INSTALL_FONTS=false
@@ -21,11 +11,10 @@ print_help() {
   echo "Usage: $0 [OPTIONS]"
   echo ""
   echo "Options:"
-  echo "  --install-deps          Install required dependencies (Ubuntu 24.04 only)"
+  echo "  --install-deps          Install required dependencies (Ubuntu 25.10 only)"
   echo "  --install-fonts         Install required fonts"
-  echo "  --install-fonts         Install fonts"
   echo "  --install-bashrc        Install bashrc too"
-  echo "  --install-miracle-wm    Install miracle-wm from the archive (Debian only)"
+  echo "  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)"
   echo "  --help             Show this help message and exit"
 }
 
@@ -55,6 +44,16 @@ for arg in "$@"; do
       ;;
   esac
 done
+
+read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
+
+choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
+if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
+    info "Installation of Matt's dotfiles is starting..."
+else
+    error "Installation was aborted."
+    exit 0
+fi
 
 . $PWD/scripts/assets.sh
 

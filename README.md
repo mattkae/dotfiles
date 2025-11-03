@@ -51,11 +51,17 @@ git clone git@github.com:mattkae/dotfiles.git
 **WARNING**: This next step will be destructive to existing configuration files,
 so please run at your own risk.
 
-Next, install:
+Next, run the `install` script:
 
 ```sh
-cd dotfiles
-./install.sh [--install-deps] [--install-fonts]
+Usage: ./install.sh [OPTIONS]
+
+Options:
+  --install-deps          Install required dependencies (Ubuntu 25.10 only)
+  --install-fonts         Install required fonts
+  --install-bashrc        Install bashrc too
+  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)
+  --help             Show this help message and exit
 ```
 
 ## Directories
