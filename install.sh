@@ -77,7 +77,7 @@ fi
 
 if $INSTALL_FONTS; then
   info "Installing fonts..."
-  . $PWD/scripts/jetbains-mono-nerd.sh
+  . $PWD/scripts/jetbrains-mono-nerd.sh
   . $PWD/scripts/fonts.sh
 fi
 
