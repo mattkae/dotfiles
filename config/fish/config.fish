@@ -8,3 +8,4 @@ end
 
 alias fd="fdfind"
 alias cat="batcat"
+fish_add_path "$HOME/.local/bin"
