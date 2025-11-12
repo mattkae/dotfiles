@@ -58,6 +58,7 @@ Usage: ./install.sh [OPTIONS]
 
 Options:
   --install-deps          Install required dependencies (Ubuntu 25.10 only)
+  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific, Ubuntu 25.10 only)
   --install-fonts         Install required fonts
   --install-bashrc        Install bashrc too
   --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)

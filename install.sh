@@ -13,7 +13,7 @@ print_help() {
   echo ""
   echo "Options:"
   echo "  --install-deps          Install required dependencies (Ubuntu 25.10 only)"
-  echo "  --install-dev-deps      Install development dependencies (Ubuntu 25.10 only)"
+  echo "  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific, Ubuntu 25.10 only)"
   echo "  --install-fonts         Install required fonts"
   echo "  --install-bashrc        Install bashrc too"
   echo "  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)"
