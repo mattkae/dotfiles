@@ -3,6 +3,7 @@
 . scripts/_meta.sh
 
 INSTALL_DEPS=false
+INSTALL_DEV_DEPS=false
 INSTALL_MIRACLE_WM=false
 INSTALL_FONTS=false
 INSTALL_BASHRC=false
@@ -12,6 +13,7 @@ print_help() {
   echo ""
   echo "Options:"
   echo "  --install-deps          Install required dependencies (Ubuntu 25.10 only)"
+  echo "  --install-dev-deps      Install development dependencies (Ubuntu 25.10 only)"
   echo "  --install-fonts         Install required fonts"
   echo "  --install-bashrc        Install bashrc too"
   echo "  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)"
@@ -23,6 +25,9 @@ for arg in "$@"; do
   case $arg in
     --install-deps)
       INSTALL_DEPS=true
+      ;;
+    --install-dev-deps)
+      INSTALL_DEV_DEPS=true
       ;;
     --install-miracle-wm)
       INSTALL_MIRACLE_WM=true
@@ -68,10 +73,18 @@ if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
   sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center
 
-  info "Installing development dependencies from archive..."
-  sudo apt install golang pyenv
-
   . $PWD/scripts/fish.sh
+fi
+
+if $INSTALL_DEV_DEPS; then
+  info "Installing development dependencies from archive..."
+  sudo apt install golang pyenv clang clangd
+
+  sudo snap install clion --classic
+  sudo snap install code --classic
+
+  info "Installing bun..."
+  curl -fsSL https://bun.sh/install | bash
 fi
 
 if $INSTALL_FONTS; then
@@ -84,6 +97,9 @@ if $INSTALL_BASHRC; then
   info "Copy bashrc..."
   cp -f "bashrc" "$HOME/.bashrc"
 fi
+
+info "Setting user permissions..."
+sudo usermod -a -G video $USER
 
 info "Copying kitty config..."
 cp -rf "config/kitty" "$HOME/.config/"
