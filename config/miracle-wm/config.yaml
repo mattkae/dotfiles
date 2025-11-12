@@ -51,11 +51,11 @@ custom_actions:
       - shift
       - primary
 inner_gaps:
-  x: 10
-  y: 10
+  x: 16
+  y: 16
 outer_gaps:
-  x: 5
-  y: 5
+  x: 8
+  y: 8
 startup_apps:
   - command: ~/.local/bin/launch-swaybg.sh
   - command: swaync
@@ -67,7 +67,7 @@ border:
   focus_color: 0x50fa7bff
 animations:
   - event: workspace_switch
-    duration: 0.25
+    duration: 0.35
     list:
       - type: fade
-        function: linear
+        function: ease_in_out_sine
