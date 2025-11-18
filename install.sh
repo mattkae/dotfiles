@@ -85,6 +85,9 @@ if $INSTALL_DEV_DEPS; then
 
   info "Installing bun..."
   curl -fsSL https://bun.sh/install | bash
+
+  sudo apt install openssh-server
+  sudo systemctl enable --now ssh
 fi
 
 if $INSTALL_FONTS; then
