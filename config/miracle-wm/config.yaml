@@ -57,6 +57,7 @@ outer_gaps:
   x: 8
   y: 8
 startup_apps:
+  - command: waybar
   - command: ~/.local/bin/launch-swaybg.sh
   - command: swaync
 terminal: kitty
@@ -71,3 +72,4 @@ animations:
     list:
       - type: fade
         function: ease_in_out_sine
+
