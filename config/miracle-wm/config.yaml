@@ -50,6 +50,12 @@ custom_actions:
     modifiers:
       - shift
       - primary
+  - command: miraclemsg workspace music
+    action: down
+    key: KEY_M
+    modifiers:
+      - shift
+      - primary
 inner_gaps:
   x: 16
   y: 16
@@ -67,9 +73,10 @@ border:
   color: 0xbd93f9ff
   focus_color: 0x50fa7bff
 animations:
-  - event: workspace_switch
+  - type: built_in
+    event: workspace_switch
     duration: 0.35
-    list:
+    parts:
       - type: fade
         function: ease_in_out_sine
 
