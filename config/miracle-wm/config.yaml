@@ -4,55 +4,55 @@ includes:
 custom_actions:
   - command: wofi --show=drun
     action: down
-    key: KEY_D
+    key: d
     modifiers:
       - primary
   - command: grimshot copy area
     action: down
-    key: KEY_S
+    key: s
     modifiers:
       - shift
       - primary
   - command: swaylock
     action: down
-    key: KEY_L
+    key: l
     modifiers:
       - primary
       - shift
   - command: pamixer -d 10
     action: down
-    key: KEY_VOLUMEDOWN
+    key: XF86AudioLowerVolume
     modifiers:
       []
   - command: pamixer -i 10
     action: down
-    key: KEY_VOLUMEUP
+    key: XF86AudioRaiseVolume
     modifiers:
       []
   - command: pamixer -t
     action: down
-    key: KEY_MUTE
+    key: XF86AudioMute
     modifiers:
       []
   - command: brightnessctl s 100-
     action: down
-    key: KEY_BRIGHTNESSDOWN
+    key: XF86MonBrightnessDown
     modifiers:
       []
   - command: brightnessctl s +100
     action: down
-    key: KEY_BRIGHTNESSUP
+    key: XF86MonBrightnessUp
     modifiers:
       []
   - command: wlogout --protocol layer-shell
     action: down
-    key: KEY_E
+    key: e
     modifiers:
       - shift
       - primary
   - command: miraclemsg workspace music
     action: down
-    key: KEY_M
+    key: m
     modifiers:
       - shift
       - primary
