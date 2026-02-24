@@ -78,7 +78,7 @@ fi
 
 if $INSTALL_DEV_DEPS; then
   info "Installing development dependencies from archive..."
-  sudo apt install golang pyenv clang clangd
+  sudo apt install golang pyenv clang clangd net-tools
 
   sudo snap install clion --classic
   sudo snap install code --classic
