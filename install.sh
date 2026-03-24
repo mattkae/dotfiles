@@ -131,6 +131,13 @@ info "Copying newsboat config..."
 mkdir -p "$HOME/.config/.newsboat"
 cp "config/newsboat/config" "$HOME/.config/.newsboat/"
 
+info "Building the WebAssembly plugin..."
+PREVIOUS_DIR=$(pwd)
+rustup target add wasm32-wasip1
+cd config/miracle-wm/matts-config
+cargo build --target wasm32-wasip1 --release
+cd "$PREVIOUS_DIR"
+
 info "Copying miracle-wm config..."
 cp -rf "config/miracle-wm" "$HOME/.config"
 

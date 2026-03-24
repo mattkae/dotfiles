@@ -1,0 +1,11 @@
+[package]
+name = "matts-config"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+miracle-plugin = { version = "0.0.6", features = ["configure"]}
+
