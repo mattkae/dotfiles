@@ -1,11 +1,11 @@
 use miracle_plugin::{
-    Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
     config::{BorderConfig, Configuration, CustomKeyAction, Gaps, StartupApp},
     container::{Container, LayoutScheme},
     core::Rect,
     plugin::Plugin,
     window::WindowInfo,
+    Key, Modifier,
 };
 use std::collections::HashMap;
 
@@ -110,7 +110,7 @@ impl Plugin for MyPlugin {
         });
         config.startup_apps = Some(startup_apps);
 
-        config.terminal = Some("foot".to_string());
+        config.terminal = Some("kitty".to_string());
 
         config.resize_jump = Some(50);
         config.border = Some(BorderConfig {
