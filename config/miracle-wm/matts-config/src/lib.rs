@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use miracle_plugin::{
     Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
@@ -8,6 +7,7 @@ use miracle_plugin::{
     plugin::Plugin,
     window::WindowInfo,
 };
+use std::collections::HashMap;
 
 #[derive(Default)]
 struct MyPlugin {
@@ -110,7 +110,7 @@ impl Plugin for MyPlugin {
         });
         config.startup_apps = Some(startup_apps);
 
-        config.terminal = Some("kitty".to_string());
+        config.terminal = Some("foot".to_string());
 
         config.resize_jump = Some(50);
         config.border = Some(BorderConfig {
@@ -131,20 +131,15 @@ impl Plugin for MyPlugin {
         let container = window.container()?;
         let direction = slide_direction_for_container(&container);
 
-        let progress = (data.runtime_seconds / data.duration_seconds).clamp(0.0, 1.0);
+        let progress = (data.runtime_seconds / 0.25).clamp(0.0, 1.0);
         let eased = ease_out_cubic(progress);
 
         let dest = &data.destination;
         let start = slide_offset_rect(dest, &direction);
-    
-        Some(animate_between(&start, dest, eased, data, progress))
-    }
 
-    fn place_new_window(&mut self, window: &WindowInfo) -> Option<miracle_plugin::placement::Placement> {
-        let container = window.container()?;
-        let direction = slide_direction_for_container(&container);
         self.window_directions.insert(window.id(), direction);
-        None
+
+        Some(animate_between(&start, dest, eased, data, progress))
     }
 
     fn window_close_animation(
@@ -154,17 +149,17 @@ impl Plugin for MyPlugin {
     ) -> Option<AnimationFrameResult> {
         let direction = self.window_directions.get(&window.id())?;
 
-        let progress = (data.runtime_seconds / data.duration_seconds).clamp(0.0, 1.0);
+        let progress = (data.runtime_seconds / 0.25).clamp(0.0, 1.0);
         let eased = ease_in_cubic(progress);
 
         let origin = &data.origin;
         let end = slide_offset_rect(origin, direction);
 
-        Some(animate_between(origin, &end, eased, data, progress))
-    }
+        if progress >= 1.0 {
+            self.window_directions.remove(&window.id());
+        }
 
-    fn window_deleted(&mut self, info: &WindowInfo) {
-        self.window_directions.remove(&info.id());
+        Some(animate_between(origin, &end, eased, data, progress))
     }
 }
 
