@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use miracle_plugin::{
     Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
@@ -9,7 +10,9 @@ use miracle_plugin::{
 };
 
 #[derive(Default)]
-struct MyPlugin;
+struct MyPlugin {
+    window_directions: HashMap<u64, SlideDirection>,
+}
 
 impl Plugin for MyPlugin {
     fn configure(&mut self) -> Option<Configuration> {
@@ -126,60 +129,42 @@ impl Plugin for MyPlugin {
         window: &WindowInfo,
     ) -> Option<AnimationFrameResult> {
         let container = window.container()?;
-
-        let slide = slide_direction_for_container(&container);
+        let direction = slide_direction_for_container(&container);
 
         let progress = (data.runtime_seconds / data.duration_seconds).clamp(0.0, 1.0);
         let eased = ease_out_cubic(progress);
 
         let dest = &data.destination;
-        let start = match slide {
-            SlideDirection::FromBottom => Rect {
-                x: dest.x,
-                y: dest.y + dest.height,
-                width: dest.width,
-                height: dest.height,
-            },
-            SlideDirection::FromLeft => Rect {
-                x: dest.x - dest.width,
-                y: dest.y,
-                width: dest.width,
-                height: dest.height,
-            },
-            SlideDirection::FromTop => Rect {
-                x: dest.x,
-                y: dest.y - dest.height,
-                width: dest.width,
-                height: dest.height,
-            },
-            SlideDirection::FromRight => Rect {
-                x: dest.x + dest.width,
-                y: dest.y,
-                width: dest.width,
-                height: dest.height,
-            },
-            SlideDirection::InPlace => Rect {
-                x: dest.x,
-                y: dest.y,
-                width: dest.width,
-                height: dest.height,
-            },
-        };
+        let start = slide_offset_rect(dest, &direction);
+    
+        Some(animate_between(&start, dest, eased, data, progress))
+    }
 
-        let area = Rect {
-            x: start.x + (dest.x - start.x) * eased,
-            y: start.y + (dest.y - start.y) * eased,
-            width: start.width + (dest.width - start.width) * eased,
-            height: start.height + (dest.height - start.height) * eased,
-        };
-        let opacity = data.opacity_start + (data.opacity_end - data.opacity_start) * eased;
+    fn place_new_window(&mut self, window: &WindowInfo) -> Option<miracle_plugin::placement::Placement> {
+        let container = window.container()?;
+        let direction = slide_direction_for_container(&container);
+        self.window_directions.insert(window.id(), direction);
+        None
+    }
 
-        Some(AnimationFrameResult {
-            completed: progress >= 1.0,
-            area: Some(area),
-            transform: None,
-            opacity: Some(opacity),
-        })
+    fn window_close_animation(
+        &mut self,
+        data: &AnimationFrameData,
+        window: &WindowInfo,
+    ) -> Option<AnimationFrameResult> {
+        let direction = self.window_directions.get(&window.id())?;
+
+        let progress = (data.runtime_seconds / data.duration_seconds).clamp(0.0, 1.0);
+        let eased = ease_in_cubic(progress);
+
+        let origin = &data.origin;
+        let end = slide_offset_rect(origin, direction);
+
+        Some(animate_between(origin, &end, eased, data, progress))
+    }
+
+    fn window_deleted(&mut self, info: &WindowInfo) {
+        self.window_directions.remove(&info.id());
     }
 }
 
@@ -189,6 +174,62 @@ enum SlideDirection {
     FromTop,
     FromRight,
     InPlace,
+}
+
+/// Returns the off-screen rect for a given base rect and slide direction.
+/// For open animations this is the start; for close animations this is the end.
+fn slide_offset_rect(base: &Rect, direction: &SlideDirection) -> Rect {
+    match direction {
+        SlideDirection::FromBottom => Rect {
+            x: base.x,
+            y: base.y + base.height,
+            width: base.width,
+            height: base.height,
+        },
+        SlideDirection::FromLeft => Rect {
+            x: base.x - base.width,
+            y: base.y,
+            width: base.width,
+            height: base.height,
+        },
+        SlideDirection::FromTop => Rect {
+            x: base.x,
+            y: base.y - base.height,
+            width: base.width,
+            height: base.height,
+        },
+        SlideDirection::FromRight => Rect {
+            x: base.x + base.width,
+            y: base.y,
+            width: base.width,
+            height: base.height,
+        },
+        SlideDirection::InPlace => *base,
+    }
+}
+
+/// Interpolate between two rects and compute opacity for one animation frame.
+fn animate_between(
+    start: &Rect,
+    end: &Rect,
+    eased: f32,
+    data: &AnimationFrameData,
+    progress: f32,
+) -> AnimationFrameResult {
+    let area = Rect {
+        x: start.x + (end.x - start.x) * eased,
+        y: start.y + (end.y - start.y) * eased,
+        width: start.width + (end.width - start.width) * eased,
+        height: start.height + (end.height - start.height) * eased,
+    };
+    let opacity = data.opacity_start + (data.opacity_end - data.opacity_start) * eased;
+
+    AnimationFrameResult {
+        completed: progress >= 1.0,
+        area: Some(area),
+        transform: None,
+        opacity: Some(opacity),
+    }
 }
 
 /// Walk up the full container tree and accumulate which sides have neighbors.
@@ -307,6 +348,10 @@ fn slide_direction_for_container(container: &Container) -> SlideDirection {
 
 fn ease_out_cubic(t: f32) -> f32 {
     1.0 - (1.0 - t).powi(3)
+}
+
+fn ease_in_cubic(t: f32) -> f32 {
+    t.powi(3)
 }
 
 miracle_plugin::miracle_plugin!(MyPlugin);
