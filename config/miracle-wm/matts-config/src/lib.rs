@@ -1,11 +1,11 @@
 use miracle_plugin::{
+    Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
     config::{BorderConfig, Configuration, CustomKeyAction, Gaps, StartupApp},
     container::{Container, LayoutScheme},
     core::Rect,
     plugin::Plugin,
     window::WindowInfo,
-    Key, Modifier,
 };
 use std::collections::HashMap;
 
@@ -224,6 +224,7 @@ fn animate_between(
         area: Some(area),
         transform: None,
         opacity: Some(opacity),
+        clip_area: None,
     }
 }
 
