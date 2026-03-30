@@ -33,7 +33,9 @@ repository, so this is more of a rolling release than anything.
 - [fdfind](https://github.com/sharkdp/fd) for better `find`
 - [newsboat](https://github.com/newsboat/newsboat) for RSS reading
 - [pamixer](https://github.com/cdemoulins/pamixer) for volume adjustment
-- [brightnessctl](https://github.com/Hummer12007/brightnessctl) for brightness management
+- [brightnessctl](https://github.com/Hummer12007/brightnessctl) for brightness
+  management
+- [wl-clipboard](https://github.com/bugaevc/wl-clipboard) for copy
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
