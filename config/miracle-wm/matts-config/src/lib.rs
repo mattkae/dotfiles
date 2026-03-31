@@ -92,22 +92,30 @@ impl Plugin for MyPlugin {
             restart_on_death: false,
             no_startup_id: false,
             should_halt_compositor_on_death: false,
-            in_systemd_scope: false,
+            in_systemd_scope: true,
         });
         startup_apps.push(StartupApp {
             command: "~/.local/bin/launch-swaybg.sh".to_string(),
             restart_on_death: false,
             no_startup_id: false,
             should_halt_compositor_on_death: false,
-            in_systemd_scope: false,
+            in_systemd_scope: true,
         });
         startup_apps.push(StartupApp {
             command: "swaync".to_string(),
             restart_on_death: false,
             no_startup_id: false,
             should_halt_compositor_on_death: false,
-            in_systemd_scope: false,
+            in_systemd_scope: true,
         });
+        startup_apps.push(StartupApp {
+            command: "/usr/libexec/xdg-desktop-portal-wlr --replace".to_string(),
+            restart_on_death: false,
+            no_startup_id: false,
+            should_halt_compositor_on_death: false,
+            in_systemd_scope: true,
+        });
+
         config.startup_apps = Some(startup_apps);
 
         config.terminal = Some("kitty".to_string());

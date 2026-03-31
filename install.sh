@@ -71,7 +71,7 @@ fi
 
 if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
-  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard
+  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme
   
   . $PWD/scripts/fish.sh
 fi
@@ -80,7 +80,7 @@ if $INSTALL_DEV_DEPS; then
   info "Installing development dependencies from archive..."
   sudo apt install golang pyenv clang clangd net-tools
 
-  sudo snap install clion --classic
+  # sudo snap install clion --classic
   sudo snap install code --classic
 
   info "Installing bun..."
@@ -144,6 +144,20 @@ cp -rf "config/miracle-wm" "$HOME/.config"
 
 info "Copying local bin files..."
 mkdir -p ~/.local/bin
-cp -r local/bin/* ~/.local/bin/ 
+cp -rf local/bin/* ~/.local/bin/ 
+
+info "Copying local share files..."
+mkdir -p ~/.local/share
+mkdir -p ~/.local/share/icons/default
+cp -rf local/share/* ~/.local/share/ 
+
+info "Copying Xresources..."
+cp .Xresources ~/.Xresources
+xrdb -load ~/.Xresources
+
+info "Copying and setting cursor values..."
+cp -rf "config/environment.d" "$HOME/.config"
+gsettings set org.gnome.desktop.interface cursor-size 24
+gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic
 
 success "Installation complete"

@@ -2,3 +2,5 @@ plugins:
   - path: ~/.config/miracle-wm/matts-config/target/wasm32-wasip1/release/matts_config.wasm
 includes:
   - ~/.config/miracle-wm/user-config.yaml
+cursor:
+  theme: Bibata-Modern-Classic
