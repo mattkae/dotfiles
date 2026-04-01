@@ -7,6 +7,7 @@ INSTALL_DEV_DEPS=false
 INSTALL_MIRACLE_WM=false
 INSTALL_FONTS=false
 INSTALL_BASHRC=false
+INSTALL_SCREENSHARE=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
@@ -17,6 +18,7 @@ print_help() {
   echo "  --install-fonts         Install required fonts"
   echo "  --install-bashrc        Install bashrc too"
   echo "  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)"
+  echo "  --install-screenshare   Build and install xdg-desktop-portal-wlr from source (Ubuntu 25.10 only)"
   echo "  --help             Show this help message and exit"
 }
 
@@ -37,6 +39,9 @@ for arg in "$@"; do
       ;;
     --install-bashrc)
       INSTALL_BASHRC=true
+      ;;
+    --install-screenshare)
+      INSTALL_SCREENSHARE=true
       ;;
     --help)
       print_help
@@ -71,10 +76,14 @@ fi
 
 if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
-  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme
+  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp
   sudo snap install bibata-all-cursor  
 
   . $PWD/scripts/fish.sh
+fi
+
+if $INSTALL_SCREENSHARE; then
+  . $PWD/scripts/screenshare.sh
 fi
 
 if $INSTALL_DEV_DEPS; then
