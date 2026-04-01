@@ -72,7 +72,8 @@ fi
 if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
   sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme
-  
+  sudo snap install bibata-all-cursor  
+
   . $PWD/scripts/fish.sh
 fi
 
@@ -159,5 +160,9 @@ info "Copying and setting cursor values..."
 cp -rf "config/environment.d" "$HOME/.config"
 gsettings set org.gnome.desktop.interface cursor-size 24
 gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic
+
+info "Setting cursor for snaps..."
+for plug in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${plug} bibata-all-cursor:icon-themes; done
+  
 
 success "Installation complete"
