@@ -88,7 +88,7 @@ fi
 
 if $INSTALL_DEV_DEPS; then
   info "Installing development dependencies from archive..."
-  sudo apt install golang pyenv clang clangd net-tools
+  sudo apt install golang pyenv clang clangd net-tools ripgrep
 
   # sudo snap install clion --classic
   sudo snap install code --classic
@@ -131,6 +131,9 @@ cp -rf "config/wofi" "$HOME/.config"
 
 info "Copying wlogout config..."
 cp -rf "config/wlogout" "$HOME/.config"
+
+info "Copying swaync config..."
+cp -rf "config/swaync" "$HOME/.config"
 
 info "Copying gtk config..."
 . ./scripts/gtk.sh

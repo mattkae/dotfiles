@@ -1,0 +1,249 @@
+/* Dracula color palette */
+/* Background:    #282a36 */
+/* Current Line:  #44475a */
+/* Foreground:    #f8f8f2 */
+/* Comment:       #6272a4 */
+/* Cyan:          #8be9fd */
+/* Green:         #50fa7b */
+/* Orange:        #ffb86c */
+/* Pink:          #ff79c6 */
+/* Purple:        #bd93f9 */
+/* Red:           #ff5555 */
+/* Yellow:        #f1fa8c */
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+  font-size: 14px;
+  color: #f8f8f2;
+}
+
+/* ── Control Center ─────────────────────────────────── */
+
+.control-center {
+  background-color: #282a36;
+  border: 1px solid #44475a;
+  border-radius: 12px;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.5;
+}
+
+/* ── Notification popups ────────────────────────────── */
+
+.notification-row {
+  outline: none;
+  margin: 4px 8px;
+}
+
+.notification-row:focus,
+.notification-row:hover {
+  opacity: 1;
+}
+
+.notification-row > .notification-background {
+  border-radius: 10px;
+  margin: 4px;
+  padding: 0;
+}
+
+.notification {
+  background-color: #282a36;
+  border: 1px solid #44475a;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+/* urgency tints */
+.notification.low {
+  border-left: 3px solid #6272a4;
+}
+
+.notification.normal {
+  border-left: 3px solid #bd93f9;
+}
+
+.notification.critical {
+  border-left: 3px solid #ff5555;
+  animation: shake 0.5s ease-in-out;
+}
+
+/* ── Notification content ───────────────────────────── */
+
+.notification-content {
+  background: transparent;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.notification-default-action,
+.notification-action {
+  background-color: #44475a;
+  border: none;
+  border-radius: 6px;
+  color: #f8f8f2;
+  padding: 4px 8px;
+  margin: 2px;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  background-color: #6272a4;
+  color: #f8f8f2;
+}
+
+.notification-default-action:active,
+.notification-action:active {
+  background-color: #bd93f9;
+  color: #282a36;
+}
+
+/* only round the outer corners when there are action buttons */
+.notification-default-action:not(.notification-action) {
+  border-radius: 8px;
+}
+
+.close-button {
+  background-color: #44475a;
+  border: none;
+  border-radius: 100%;
+  color: #f8f8f2;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+  margin: 4px;
+}
+
+.close-button:hover {
+  background-color: #ff5555;
+  color: #f8f8f2;
+}
+
+.close-button:active {
+  background-color: #ff79c6;
+  color: #282a36;
+}
+
+.notification-title {
+  color: #bd93f9;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.notification-body {
+  color: #f8f8f2;
+  font-size: 13px;
+}
+
+.notification-summary {
+  color: #f8f8f2;
+  font-weight: bold;
+}
+
+.notification-time {
+  color: #6272a4;
+  font-size: 11px;
+}
+
+.notification-icon {
+  border-radius: 6px;
+  margin-right: 8px;
+}
+
+.image {
+  border-radius: 8px;
+  margin-right: 8px;
+}
+
+/* ── Widgets ────────────────────────────────────────── */
+
+/* Title */
+.widget-title {
+  background-color: #282a36;
+  padding: 8px 12px 4px;
+}
+
+.widget-title > label {
+  color: #bd93f9;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.widget-title > button {
+  background-color: #44475a;
+  border: none;
+  border-radius: 6px;
+  color: #f8f8f2;
+  padding: 4px 10px;
+}
+
+.widget-title > button:hover {
+  background-color: #ff5555;
+  color: #f8f8f2;
+}
+
+/* Do Not Disturb */
+.widget-dnd {
+  background-color: #282a36;
+  padding: 6px 12px;
+}
+
+.widget-dnd > switch {
+  background-color: #44475a;
+  border: none;
+  border-radius: 12px;
+}
+
+.widget-dnd > switch:checked {
+  background-color: #bd93f9;
+}
+
+.widget-dnd > switch slider {
+  background-color: #f8f8f2;
+  border-radius: 10px;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.widget-dnd > label {
+  color: #f8f8f2;
+  font-size: 14px;
+}
+
+/* Inhibitors */
+.widget-inhibitors {
+  background-color: #282a36;
+  padding: 6px 12px;
+}
+
+.widget-inhibitors > label {
+  color: #ffb86c;
+  font-size: 13px;
+}
+
+.widget-inhibitors > button {
+  background-color: #44475a;
+  border: none;
+  border-radius: 6px;
+  color: #f8f8f2;
+  padding: 4px 10px;
+}
+
+.widget-inhibitors > button:hover {
+  background-color: #ffb86c;
+  color: #282a36;
+}
+
+/* ── Critical notification animation ───────────────── */
+
+@keyframes shake {
+  0%   { margin-left: 0;   }
+  25%  { margin-left: 6px; }
+  50%  { margin-left: 0;   }
+  75%  { margin-left: 6px; }
+  100% { margin-left: 0;   }
+}
