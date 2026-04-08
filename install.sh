@@ -76,7 +76,7 @@ fi
 
 if $INSTALL_DEPS; then
   info "Installing applications dependencies from archive..."
-  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp
+  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol
   sudo snap install bibata-all-cursor  
 
   . $PWD/scripts/fish.sh

@@ -36,6 +36,7 @@ repository, so this is more of a rolling release than anything.
 - [brightnessctl](https://github.com/Hummer12007/brightnessctl) for brightness
   management
 - [wl-clipboard](https://github.com/bugaevc/wl-clipboard) for copy
+- [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol) for sound control
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
