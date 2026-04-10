@@ -1,2 +1,6 @@
 #!/usr/bin/sh
-curl -s "https://wttr.in/?format=1"
+result=$(curl -s "https://wttr.in/Philadelphia?format=1")
+if echo "$result" | grep -q "render failed"; then
+  exit 1
+fi
+echo "$result"

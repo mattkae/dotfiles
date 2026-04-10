@@ -1,7 +1,7 @@
 use miracle_plugin::{
     Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
-    config::{BorderConfig, Configuration, CustomKeyAction, Gaps, StartupApp},
+    config::{BorderConfig, Configuration, CursorConfiguration, CursorFocusMode, CustomKeyAction, Gaps, StartupApp},
     container::{Container, LayoutScheme},
     core::Rect,
     plugin::Plugin,
@@ -126,6 +126,11 @@ impl Plugin for MyPlugin {
             radius: 4.0,
             color: "0xbd93f9ff".to_string(),
             focus_color: "0x50fa7bff".to_string(),
+        });
+
+        config.cursor = Some(CursorConfiguration{
+            focus_mode: Some(CursorFocusMode::Hover),
+            scale: None
         });
 
         Some(config)
