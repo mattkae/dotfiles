@@ -65,6 +65,9 @@ else
     exit 0
 fi
 
+info "Ensuring curl installation..."
+sudo apt install curl
+
 . $PWD/scripts/assets.sh
 
 if $INSTALL_MIRACLE_WM; then
@@ -82,13 +85,9 @@ if $INSTALL_DEPS; then
   . $PWD/scripts/fish.sh
 fi
 
-if $INSTALL_SCREENSHARE; then
-  . $PWD/scripts/screenshare.sh
-fi
-
 if $INSTALL_DEV_DEPS; then
   info "Installing development dependencies from archive..."
-  sudo apt install golang pyenv clang clangd net-tools ripgrep
+  sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep
 
   # sudo snap install clion --classic
   sudo snap install code --classic
@@ -98,6 +97,13 @@ if $INSTALL_DEV_DEPS; then
 
   sudo apt install openssh-server
   sudo systemctl enable --now ssh
+
+  info "Installing rust..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
+if $INSTALL_SCREENSHARE; then
+  . $PWD/scripts/screenshare.sh
 fi
 
 if $INSTALL_FONTS; then
@@ -148,6 +154,7 @@ info "Building the WebAssembly plugin..."
 PREVIOUS_DIR=$(pwd)
 rustup target add wasm32-wasip1
 cd config/miracle-wm/matts-config
+sudo apt install libmircore-dev
 cargo clean
 cargo build --target wasm32-wasip1 --release
 cd "$PREVIOUS_DIR"
