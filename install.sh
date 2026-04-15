@@ -72,6 +72,7 @@ sudo apt install curl
 
 if $INSTALL_MIRACLE_WM; then
   info "Installing miracle-wm..."
+  sudo add-apt-repository ppa:mir-team/release
   sudo add-apt-repository ppa:matthew-kosarek/miracle-wm
   sudo apt update
   sudo apt install miracle-wm
