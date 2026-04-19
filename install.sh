@@ -78,7 +78,7 @@ sudo apt install miracle-wm -y
 
 info "Installing applications dependencies from archive..."
 sudo apt -y install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol
-sudo snap install bibata-all-cursor
+command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 
 . $PWD/scripts/fish.sh
 
@@ -87,7 +87,7 @@ if $INSTALL_DEV_DEPS; then
   sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep -y
 
   # sudo snap install clion --classic
-  sudo snap install code --classic
+  command -v snap &>/dev/null && sudo snap install code --classic
 
   info "Installing bun..."
   curl -fsSL https://bun.sh/install | bash
@@ -172,7 +172,9 @@ gsettings set org.gnome.desktop.interface cursor-size 24 || true
 gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic || true
 
 info "Setting cursor for snaps..."
-for plug in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${plug} bibata-all-cursor:icon-themes; done
+if command -v snap &>/dev/null; then
+  for plug in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${plug} bibata-all-cursor:icon-themes; done
+fi
   
 
 success "Installation complete"
