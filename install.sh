@@ -60,7 +60,7 @@ else
 fi
 
 info "Ensuring curl installation..."
-sudo apt install curl
+sudo apt install -y curl
 
 info "Adding miracle-wm PPAs..."
 sudo add-apt-repository ppa:mir-team/dev -y
@@ -92,7 +92,7 @@ if $INSTALL_DEV_DEPS; then
   info "Installing bun..."
   curl -fsSL https://bun.sh/install | bash
 
-  sudo apt install openssh-server
+  sudo apt install -y openssh-server
   sudo systemctl enable --now ssh
 
 fi
