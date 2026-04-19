@@ -2,47 +2,34 @@
 
 . scripts/_meta.sh
 
-INSTALL_DEPS=false
+UBUNTU_VERSION=$(lsb_release -rs 2>/dev/null)
+if [[ "$UBUNTU_VERSION" != "25.10" ]]; then
+  echo "ERROR: This script requires Ubuntu 25.10. Detected: $(lsb_release -ds 2>/dev/null || echo 'unknown')"
+  exit 1
+fi
+
 INSTALL_DEV_DEPS=false
-INSTALL_MIRACLE_WM=false
-INSTALL_FONTS=false
 INSTALL_BASHRC=false
-INSTALL_SCREENSHARE=false
 YES=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
   echo ""
   echo "Options:"
-  echo "  --install-deps          Install required dependencies (Ubuntu 25.10 only)"
-  echo "  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific, Ubuntu 25.10 only)"
-  echo "  --install-fonts         Install required fonts"
+  echo "  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific)"
   echo "  --install-bashrc        Install bashrc too"
-  echo "  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)"
-  echo "  --install-screenshare   Build and install xdg-desktop-portal-wlr from source (Ubuntu 25.10 only)"
-  echo "  --help             Show this help message and exit"
+  echo "  --yes                   Skip confirmation prompt"
+  echo "  --help                  Show this help message and exit"
 }
 
 # Parse arguments
 for arg in "$@"; do
   case $arg in
-    --install-deps)
-      INSTALL_DEPS=true
-      ;;
     --install-dev-deps)
       INSTALL_DEV_DEPS=true
       ;;
-    --install-miracle-wm)
-      INSTALL_MIRACLE_WM=true
-      ;;
-    --install-fonts)
-      INSTALL_FONTS=true
-      ;;
     --install-bashrc)
       INSTALL_BASHRC=true
-      ;;
-    --install-screenshare)
-      INSTALL_SCREENSHARE=true
       ;;
     --yes)
       YES=true
@@ -86,18 +73,14 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 . $PWD/scripts/assets.sh
 
-if $INSTALL_MIRACLE_WM; then
-  info "Installing miracle-wm..."
-  sudo apt install miracle-wm
-fi
+info "Installing miracle-wm..."
+sudo apt install miracle-wm
 
-if $INSTALL_DEPS; then
-  info "Installing applications dependencies from archive..."
-  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol
-  sudo snap install bibata-all-cursor  
+info "Installing applications dependencies from archive..."
+sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol
+sudo snap install bibata-all-cursor
 
-  . $PWD/scripts/fish.sh
-fi
+. $PWD/scripts/fish.sh
 
 if $INSTALL_DEV_DEPS; then
   info "Installing development dependencies from archive..."
@@ -114,15 +97,11 @@ if $INSTALL_DEV_DEPS; then
 
 fi
 
-if $INSTALL_SCREENSHARE; then
-  . $PWD/scripts/screenshare.sh
-fi
+. $PWD/scripts/screenshare.sh
 
-if $INSTALL_FONTS; then
-  info "Installing fonts..."
-  . $PWD/scripts/jetbrains-mono-nerd.sh
-  . $PWD/scripts/fonts.sh
-fi
+info "Installing fonts..."
+. $PWD/scripts/jetbrains-mono-nerd.sh
+. $PWD/scripts/fonts.sh
 
 if $INSTALL_BASHRC; then
   info "Copy bashrc..."
@@ -166,7 +145,7 @@ info "Building the WebAssembly plugin..."
 PREVIOUS_DIR=$(pwd)
 rustup target add wasm32-wasip1
 cd config/miracle-wm/matts-config
-sudo apt install -y build-essential clang libclang-dev libmircore-dev
+sudo apt install -y build-essential libclang-dev libmircore-dev
 cargo clean
 cargo build --target wasm32-wasip1 --release
 cd "$PREVIOUS_DIR"
