@@ -128,7 +128,7 @@ if $INSTALL_BASHRC; then
 fi
 
 info "Setting user permissions..."
-sudo usermod -a -G video $USER
+sudo usermod -a -G video $USER || true
 
 info "Copying kitty config..."
 cp -rf "config/kitty" "$HOME/.config/"
