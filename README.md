@@ -1,7 +1,6 @@
-# Matt's Dotfiles for Miracle on Ubuntu
+# Matt's Dotfiles for Miracle on Ubuntu 25.10
 These dotfiles are tailored for [miracle-wm](https://github.com/miracle-wm-org/miracle-wm)
-on Ubuntu 25.10. The installation is geared toward Ubuntu 25.10 users, but you may extend
-it to include whatever you personally like. These dotfiles are very much geared towards
+on Ubuntu 25.10. These dotfiles are very much geared towards
 my (corporate-ish) development life that largely revolves around C++, web, python,
 and other types of development.
 
@@ -11,7 +10,7 @@ source here.
 I very much enjoy Dracula theming, so that's what you'll be getting if you
 install this 🧛
 
-Note that this configuration will only work with the latest version of miracle in the
+Note that this configuration will only work with the latest version of miracle-wm in the
 repository, so this is more of a rolling release than anything.
 
 ## Screenshot
@@ -37,6 +36,7 @@ repository, so this is more of a rolling release than anything.
   management
 - [wl-clipboard](https://github.com/bugaevc/wl-clipboard) for copy
 - [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol) for sound control
+- [nautilus](https://gitlab.gnome.org/GNOME/nautilus) for file management
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
@@ -45,27 +45,32 @@ repository, so this is more of a rolling release than anything.
 ## Icons
 - [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
+## Requirements
+
+**Ubuntu 25.10 is required.** The install script will exit immediately if run on any other OS or version.
+
 ## Install
+
+> [!CAUTION]
+> **Only install on a fresh machine.** This script is destructive — it will overwrite your existing dotfiles, shell configuration, and system packages without the ability to recover them. Do **not** run this on a machine with configuration you care about.
+
 First, clone the repo:
 ```sh
 git clone git@github.com:mattkae/dotfiles.git
 ```
 
-**WARNING**: This next step will be destructive to existing configuration files,
-so please run at your own risk.
-
 Next, run the `install` script:
 
 ```sh
-Usage: ./install.sh [OPTIONS]
+./install.sh [OPTIONS]
+```
 
+The script always installs dependencies, miracle-wm, fonts, and screenshare support. Optional flags:
+
+```
 Options:
-  --install-deps          Install required dependencies (Ubuntu 25.10 only)
-  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific, Ubuntu 25.10 only)
-  --install-fonts         Install required fonts
-  --install-bashrc        Install bashrc too
-  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)
-  --help             Show this help message and exit
+  --yes                   Skip confirmation prompt
+  --help                  Show this help message and exit
 ```
 
 ## Directories
@@ -79,4 +84,4 @@ any machine-specific configuration in `~/config/miracle-wm/user-config.yaml`.
 For example, I run `xdg-desktop-portal-wlr` there so that screensharing works.
 
 ## Fish
-- Users may play custom fish configuration in `~/.config/fish/user.sh`.
+- Users may add custom fish configuration in `~/.config/fish/user.sh`.

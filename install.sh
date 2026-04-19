@@ -2,46 +2,27 @@
 
 . scripts/_meta.sh
 
-INSTALL_DEPS=false
-INSTALL_DEV_DEPS=false
-INSTALL_MIRACLE_WM=false
-INSTALL_FONTS=false
-INSTALL_BASHRC=false
-INSTALL_SCREENSHARE=false
+UBUNTU_VERSION=$(lsb_release -rs 2>/dev/null)
+if [[ "$UBUNTU_VERSION" != "25.10" ]]; then
+  echo "ERROR: This script requires Ubuntu 25.10. Detected: $(lsb_release -ds 2>/dev/null || echo 'unknown')"
+  exit 1
+fi
+
+YES=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
   echo ""
   echo "Options:"
-  echo "  --install-deps          Install required dependencies (Ubuntu 25.10 only)"
-  echo "  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific, Ubuntu 25.10 only)"
-  echo "  --install-fonts         Install required fonts"
-  echo "  --install-bashrc        Install bashrc too"
-  echo "  --install-miracle-wm    Install miracle-wm from the archive (Ubuntu 25.10 only)"
-  echo "  --install-screenshare   Build and install xdg-desktop-portal-wlr from source (Ubuntu 25.10 only)"
-  echo "  --help             Show this help message and exit"
+  echo "  --yes                   Skip confirmation prompt"
+  echo "  --help                  Show this help message and exit"
 }
 
 # Parse arguments
 for arg in "$@"; do
   case $arg in
-    --install-deps)
-      INSTALL_DEPS=true
-      ;;
-    --install-dev-deps)
-      INSTALL_DEV_DEPS=true
-      ;;
-    --install-miracle-wm)
-      INSTALL_MIRACLE_WM=true
-      ;;
-    --install-fonts)
-      INSTALL_FONTS=true
-      ;;
-    --install-bashrc)
-      INSTALL_BASHRC=true
-      ;;
-    --install-screenshare)
-      INSTALL_SCREENSHARE=true
+    --yes)
+      YES=true
       ;;
     --help)
       print_help
@@ -55,71 +36,66 @@ for arg in "$@"; do
   esac
 done
 
-read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
-
-choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
-if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
+if $YES; then
     info "Installation of Matt's dotfiles is starting..."
 else
-    error "Installation was aborted."
-    exit 0
+    read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
+    choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
+    if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
+        info "Installation of Matt's dotfiles is starting..."
+    else
+        error "Installation was aborted."
+        exit 0
+    fi
 fi
 
 info "Ensuring curl installation..."
-sudo apt install curl
+sudo apt install -y curl
+
+info "Adding miracle-wm PPAs..."
+sudo add-apt-repository ppa:mir-team/dev -y
+sudo add-apt-repository ppa:matthew-kosarek/miracle-wm -y
+sudo apt update
+
+info "Installing rust..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
 
 . $PWD/scripts/assets.sh
 
-if $INSTALL_MIRACLE_WM; then
-  info "Installing miracle-wm..."
-  sudo add-apt-repository ppa:mir-team/release
-  sudo add-apt-repository ppa:matthew-kosarek/miracle-wm
-  sudo apt update
-  sudo apt install miracle-wm
-fi
+info "Installing miracle-wm..."
+sudo apt install miracle-wm -y
 
-if $INSTALL_DEPS; then
-  info "Installing applications dependencies from archive..."
-  sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol
-  sudo snap install bibata-all-cursor  
+info "Installing applications dependencies from archive..."
+sudo apt -y install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol nautilus
+command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 
-  . $PWD/scripts/fish.sh
-fi
+. $PWD/scripts/fish.sh
 
-if $INSTALL_DEV_DEPS; then
-  info "Installing development dependencies from archive..."
-  sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep
+info "Installing development dependencies from archive..."
+sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep -y
 
-  # sudo snap install clion --classic
-  sudo snap install code --classic
+# sudo snap install clion --classic
+# command -v snap &>/dev/null && sudo snap install code --classic
 
-  info "Installing bun..."
-  curl -fsSL https://bun.sh/install | bash
+info "Installing bun..."
+curl -fsSL https://bun.sh/install | bash
 
-  sudo apt install openssh-server
-  sudo systemctl enable --now ssh
+sudo apt install -y openssh-server
+sudo systemctl enable ssh
+systemctl is-active --quiet systemd 2>/dev/null && sudo systemctl start ssh || true
 
-  info "Installing rust..."
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-fi
+. $PWD/scripts/screenshare.sh
 
-if $INSTALL_SCREENSHARE; then
-  . $PWD/scripts/screenshare.sh
-fi
+info "Installing fonts..."
+. $PWD/scripts/jetbrains-mono-nerd.sh
+. $PWD/scripts/fonts.sh
 
-if $INSTALL_FONTS; then
-  info "Installing fonts..."
-  . $PWD/scripts/jetbrains-mono-nerd.sh
-  . $PWD/scripts/fonts.sh
-fi
-
-if $INSTALL_BASHRC; then
-  info "Copy bashrc..."
-  cp -f "bashrc" "$HOME/.bashrc"
-fi
+info "Copying bashrc..."
+cp -f "bashrc" "$HOME/.bashrc"
 
 info "Setting user permissions..."
-sudo usermod -a -G video $USER
+sudo usermod -a -G video $USER || true
 
 info "Copying kitty config..."
 cp -rf "config/kitty" "$HOME/.config/"
@@ -155,7 +131,7 @@ info "Building the WebAssembly plugin..."
 PREVIOUS_DIR=$(pwd)
 rustup target add wasm32-wasip1
 cd config/miracle-wm/matts-config
-sudo apt install libmircore-dev
+sudo apt install -y build-essential libclang-dev libmircore-dev
 cargo clean
 cargo build --target wasm32-wasip1 --release
 cd "$PREVIOUS_DIR"
@@ -174,15 +150,19 @@ cp -rf local/share/* ~/.local/share/
 
 info "Copying Xresources..."
 cp .Xresources ~/.Xresources
-xrdb -load ~/.Xresources
+xrdb -load ~/.Xresources || true
 
 info "Copying and setting cursor values..."
 cp -rf "config/environment.d" "$HOME/.config"
-gsettings set org.gnome.desktop.interface cursor-size 24
-gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic
+gsettings set org.gnome.desktop.interface cursor-size 24 || true
+gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic || true
+gsettings set org.gnome.desktop.interface gtk-theme Dracula || true
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark || true
 
 info "Setting cursor for snaps..."
-for plug in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${plug} bibata-all-cursor:icon-themes; done
+if command -v snap &>/dev/null; then
+  for plug in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${plug} bibata-all-cursor:icon-themes; done
+fi
   
 
 success "Installation complete"
