@@ -80,6 +80,10 @@ sudo add-apt-repository ppa:mir-team/dev -y
 sudo add-apt-repository ppa:matthew-kosarek/miracle-wm -y
 sudo apt update
 
+info "Installing rust..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
+
 . $PWD/scripts/assets.sh
 
 if $INSTALL_MIRACLE_WM; then
@@ -108,8 +112,6 @@ if $INSTALL_DEV_DEPS; then
   sudo apt install openssh-server
   sudo systemctl enable --now ssh
 
-  info "Installing rust..."
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
 if $INSTALL_SCREENSHARE; then
@@ -164,7 +166,7 @@ info "Building the WebAssembly plugin..."
 PREVIOUS_DIR=$(pwd)
 rustup target add wasm32-wasip1
 cd config/miracle-wm/matts-config
-sudo apt install libmircore-dev
+sudo apt install -y libmircore-dev
 cargo clean
 cargo build --target wasm32-wasip1 --release
 cd "$PREVIOUS_DIR"
