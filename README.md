@@ -50,13 +50,14 @@ repository, so this is more of a rolling release than anything.
 **Ubuntu 25.10 is required.** The install script will exit immediately if run on any other OS or version.
 
 ## Install
+
+> [!CAUTION]
+> **Only install on a fresh machine.** This script is destructive — it will overwrite your existing dotfiles, shell configuration, and system packages without the ability to recover them. Do **not** run this on a machine with configuration you care about.
+
 First, clone the repo:
 ```sh
 git clone git@github.com:mattkae/dotfiles.git
 ```
-
-**WARNING**: This next step will be destructive to existing configuration files,
-so please run at your own risk.
 
 Next, run the `install` script:
 
