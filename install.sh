@@ -20,6 +20,7 @@ print_help() {
 
 # Parse arguments
 for arg in "$@"; do
+  case $arg in
     --yes)
       YES=true
       ;;
