@@ -166,7 +166,7 @@ info "Building the WebAssembly plugin..."
 PREVIOUS_DIR=$(pwd)
 rustup target add wasm32-wasip1
 cd config/miracle-wm/matts-config
-sudo apt install -y libmircore-dev
+sudo apt install -y build-essential libclang-dev libmircore-dev
 cargo clean
 cargo build --target wasm32-wasip1 --release
 cd "$PREVIOUS_DIR"

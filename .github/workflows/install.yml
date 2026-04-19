@@ -19,7 +19,7 @@ jobs:
           apt-get update -y
           DEBIAN_FRONTEND=noninteractive apt-get install -y \
             sudo git curl software-properties-common \
-            build-essential xvfb dbus-x11
+            xvfb dbus-x11
 
       - uses: actions/checkout@v4
 
