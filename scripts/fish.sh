@@ -6,7 +6,7 @@ PREVIOUS_DIR=$(pwd)
 
 if [ ! -d "$HOME/.local/share/omf" ]; then
     info "Installing oh my fish..."
-    curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+    curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish --no-interactive -- --noninteractive
 else
     info "Oh My Fish already installed, skipping."
 fi
