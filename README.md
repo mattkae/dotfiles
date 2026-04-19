@@ -36,6 +36,7 @@ repository, so this is more of a rolling release than anything.
   management
 - [wl-clipboard](https://github.com/bugaevc/wl-clipboard) for copy
 - [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol) for sound control
+- [nautilus](https://gitlab.gnome.org/GNOME/nautilus) for file management
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
