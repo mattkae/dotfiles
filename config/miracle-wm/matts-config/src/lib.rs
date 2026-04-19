@@ -25,13 +25,13 @@ impl Plugin for MyPlugin {
             action: miracle_plugin::BindingAction::Down,
             key: Key("d".to_string()),
             modifiers: vec![Modifier::Primary],
-            command: "wofi --show=drun".to_string(),
+            command: "wofi --show=drun --allow-images".to_string(),
         });
         custom_actions.push(CustomKeyAction {
             action: miracle_plugin::BindingAction::Down,
             key: Key("S".to_string()),
             modifiers: vec![Modifier::Primary],
-            command: "grimshot copy area".to_string(),
+            command: "~/.local/bin/screenshot.sh".to_string(),
         });
         custom_actions.push(CustomKeyAction {
             action: miracle_plugin::BindingAction::Down,

@@ -192,6 +192,12 @@
     border-radius: 0pt 2pt 2pt 0pt;
 }
 
+#custom-media {
+    color: @purple;
+    padding-left: 8pt;
+    padding-right: 8pt;
+}
+
 #clock.date {
 	background: rgba(0, 0, 0, 0);
 	color: @white;

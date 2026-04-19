@@ -7,7 +7,8 @@
 	"modules-left": [
 		"sway/mode",
 		"sway/workspaces",
-		"sway/window"
+		"sway/window",
+		"custom/media"
 	],
 
 	"modules-right": [
@@ -24,6 +25,13 @@
 	],
 
 	// Modules
+
+  "custom/media": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/media.sh",
+    "interval": 3,
+    "on-click": "playerctl play-pause",
+  },
 
   "custom/weather": {
     "format": "{} ",
