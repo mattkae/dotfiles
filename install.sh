@@ -74,17 +74,17 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . $PWD/scripts/assets.sh
 
 info "Installing miracle-wm..."
-sudo apt install miracle-wm
+sudo apt install miracle-wm -y
 
 info "Installing applications dependencies from archive..."
-sudo apt install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol
+sudo apt -y install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol
 sudo snap install bibata-all-cursor
 
 . $PWD/scripts/fish.sh
 
 if $INSTALL_DEV_DEPS; then
   info "Installing development dependencies from archive..."
-  sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep
+  sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep -y
 
   # sudo snap install clion --classic
   sudo snap install code --classic
