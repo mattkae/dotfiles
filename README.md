@@ -68,8 +68,6 @@ The script always installs dependencies, miracle-wm, fonts, and screenshare supp
 
 ```
 Options:
-  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific)
-  --install-bashrc        Install bashrc too
   --yes                   Skip confirmation prompt
   --help                  Show this help message and exit
 ```

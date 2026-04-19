@@ -8,29 +8,18 @@ if [[ "$UBUNTU_VERSION" != "25.10" ]]; then
   exit 1
 fi
 
-INSTALL_DEV_DEPS=false
-INSTALL_BASHRC=false
 YES=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
   echo ""
   echo "Options:"
-  echo "  --install-dev-deps      Install development dependencies (HIGHLY Matt-specific)"
-  echo "  --install-bashrc        Install bashrc too"
   echo "  --yes                   Skip confirmation prompt"
   echo "  --help                  Show this help message and exit"
 }
 
 # Parse arguments
 for arg in "$@"; do
-  case $arg in
-    --install-dev-deps)
-      INSTALL_DEV_DEPS=true
-      ;;
-    --install-bashrc)
-      INSTALL_BASHRC=true
-      ;;
     --yes)
       YES=true
       ;;
@@ -82,20 +71,17 @@ command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 
 . $PWD/scripts/fish.sh
 
-if $INSTALL_DEV_DEPS; then
-  info "Installing development dependencies from archive..."
-  sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep -y
+info "Installing development dependencies from archive..."
+sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep -y
 
-  # sudo snap install clion --classic
-  command -v snap &>/dev/null && sudo snap install code --classic
+# sudo snap install clion --classic
+# command -v snap &>/dev/null && sudo snap install code --classic
 
-  info "Installing bun..."
-  curl -fsSL https://bun.sh/install | bash
+info "Installing bun..."
+curl -fsSL https://bun.sh/install | bash
 
-  sudo apt install -y openssh-server
-  sudo systemctl enable --now ssh
-
-fi
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
 
 . $PWD/scripts/screenshare.sh
 
@@ -103,10 +89,8 @@ info "Installing fonts..."
 . $PWD/scripts/jetbrains-mono-nerd.sh
 . $PWD/scripts/fonts.sh
 
-if $INSTALL_BASHRC; then
-  info "Copy bashrc..."
-  cp -f "bashrc" "$HOME/.bashrc"
-fi
+info "Copying bashrc..."
+cp -f "bashrc" "$HOME/.bashrc"
 
 info "Setting user permissions..."
 sudo usermod -a -G video $USER || true
