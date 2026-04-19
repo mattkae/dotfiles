@@ -3,7 +3,7 @@
 set -e
 
 info "Building and installing xdg-desktop-portal-wlr v0.5.0 from source..."
-sudo apt install -y meson ninja-build libpipewire-0.3-dev libxkbcommon-dev libsystemd-dev libinih-dev wayland-protocols libwayland-dev
+sudo apt install -y meson ninja-build libc6-dev libpipewire-0.3-dev libxkbcommon-dev libsystemd-dev libinih-dev wayland-protocols libwayland-dev
 XDPW_DOTFILES_DIR=$(pwd)
 XDPW_TMP=$(mktemp -d)
 git clone https://github.com/emersion/xdg-desktop-portal-wlr "$XDPW_TMP/xdg-desktop-portal-wlr"

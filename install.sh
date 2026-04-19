@@ -170,6 +170,8 @@ info "Copying and setting cursor values..."
 cp -rf "config/environment.d" "$HOME/.config"
 gsettings set org.gnome.desktop.interface cursor-size 24 || true
 gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic || true
+gsettings set org.gnome.desktop.interface gtk-theme Dracula || true
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark || true
 
 info "Setting cursor for snaps..."
 if command -v snap &>/dev/null; then
