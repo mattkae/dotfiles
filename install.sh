@@ -8,6 +8,7 @@ INSTALL_MIRACLE_WM=false
 INSTALL_FONTS=false
 INSTALL_BASHRC=false
 INSTALL_SCREENSHARE=false
+YES=false
 
 print_help() {
   echo "Usage: $0 [OPTIONS]"
@@ -43,6 +44,9 @@ for arg in "$@"; do
     --install-screenshare)
       INSTALL_SCREENSHARE=true
       ;;
+    --yes)
+      YES=true
+      ;;
     --help)
       print_help
       exit 0
@@ -55,26 +59,31 @@ for arg in "$@"; do
   esac
 done
 
-read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
-
-choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
-if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
+if $YES; then
     info "Installation of Matt's dotfiles is starting..."
 else
-    error "Installation was aborted."
-    exit 0
+    read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
+    choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
+    if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
+        info "Installation of Matt's dotfiles is starting..."
+    else
+        error "Installation was aborted."
+        exit 0
+    fi
 fi
 
 info "Ensuring curl installation..."
 sudo apt install curl
 
+info "Adding miracle-wm PPAs..."
+sudo add-apt-repository ppa:mir-team/dev -y
+sudo add-apt-repository ppa:matthew-kosarek/miracle-wm -y
+sudo apt update
+
 . $PWD/scripts/assets.sh
 
 if $INSTALL_MIRACLE_WM; then
   info "Installing miracle-wm..."
-  sudo add-apt-repository ppa:mir-team/release
-  sudo add-apt-repository ppa:matthew-kosarek/miracle-wm
-  sudo apt update
   sudo apt install miracle-wm
 fi
 
@@ -174,12 +183,12 @@ cp -rf local/share/* ~/.local/share/
 
 info "Copying Xresources..."
 cp .Xresources ~/.Xresources
-xrdb -load ~/.Xresources
+xrdb -load ~/.Xresources || true
 
 info "Copying and setting cursor values..."
 cp -rf "config/environment.d" "$HOME/.config"
-gsettings set org.gnome.desktop.interface cursor-size 24
-gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic
+gsettings set org.gnome.desktop.interface cursor-size 24 || true
+gsettings set org.gnome.desktop.interface cursor-theme Bibata-Modern-Classic || true
 
 info "Setting cursor for snaps..."
 for plug in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${plug} bibata-all-cursor:icon-themes; done
