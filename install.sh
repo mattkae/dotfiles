@@ -82,7 +82,8 @@ info "Installing bun..."
 curl -fsSL https://bun.sh/install | bash
 
 sudo apt install -y openssh-server
-sudo systemctl enable --now ssh
+sudo systemctl enable ssh
+systemctl is-active --quiet systemd 2>/dev/null && sudo systemctl start ssh || true
 
 . $PWD/scripts/screenshare.sh
 
