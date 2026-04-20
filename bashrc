@@ -40,6 +40,7 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias clangd="clangd-19"                  # I always use clangd-19
 alias gti="git"                           # I misspell git a lot!
+alias ls="eza --icons --group-directories-first"
 
 xhost +local:root > /dev/null 2>&1
 
