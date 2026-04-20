@@ -4,6 +4,6 @@ set -e
 
 info "Installing Dracula theme..."
 
-rm -rf ~/.themes/Dracula
-mkdir -p ~/.themes
-git clone https://github.com/dracula/gtk.git ~/.themes/Dracula
+mkdir -p ~/.local/share/themes
+rm -rf ~/.local/share/themes/Dracula
+git clone https://github.com/dracula/gtk.git ~/.local/share/themes/Dracula
