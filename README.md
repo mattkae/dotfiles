@@ -1,4 +1,4 @@
-# Matt's Dotfiles for Miracle on Ubuntu 25.10
+# Matt's Dotfiles for Miracle on Ubuntu 26.04
 These dotfiles are tailored for [miracle-wm](https://github.com/miracle-wm-org/miracle-wm)
 on Ubuntu 26.04. These dotfiles are very much geared towards
 my (corporate-ish) development life that largely revolves around C++, web, python,
@@ -14,7 +14,7 @@ Note that this configuration will only work with the latest version of miracle-w
 repository, so this is more of a rolling release than anything.
 
 ## Screenshot
-[image](image.png)
+![image](image.png)
 
 ## Software
 - [swaylock](https://github.com/swaywm/swaylock) for lockscreen
