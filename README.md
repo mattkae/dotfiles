@@ -14,6 +14,7 @@ Note that this configuration will only work with the latest version of miracle-w
 repository, so this is more of a rolling release than anything.
 
 ## Screenshot
+[image](image.png)
 
 ## Software
 - [swaylock](https://github.com/swaywm/swaylock) for lockscreen
