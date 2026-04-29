@@ -3,8 +3,8 @@
 . scripts/_meta.sh
 
 UBUNTU_VERSION=$(lsb_release -rs 2>/dev/null)
-if [[ "$UBUNTU_VERSION" != "25.10" ]]; then
-  echo "ERROR: This script requires Ubuntu 25.10. Detected: $(lsb_release -ds 2>/dev/null || echo 'unknown')"
+if [[ "$UBUNTU_VERSION" != "26.04" ]]; then
+  echo "ERROR: This script requires Ubuntu 26.04. Detected: $(lsb_release -ds 2>/dev/null || echo 'unknown')"
   exit 1
 fi
 

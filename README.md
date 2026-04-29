@@ -1,6 +1,6 @@
 # Matt's Dotfiles for Miracle on Ubuntu 25.10
 These dotfiles are tailored for [miracle-wm](https://github.com/miracle-wm-org/miracle-wm)
-on Ubuntu 25.10. These dotfiles are very much geared towards
+on Ubuntu 26.04. These dotfiles are very much geared towards
 my (corporate-ish) development life that largely revolves around C++, web, python,
 and other types of development.
 
@@ -47,7 +47,7 @@ repository, so this is more of a rolling release than anything.
 
 ## Requirements
 
-**Ubuntu 25.10 is required.** The install script will exit immediately if run on any other OS or version.
+**Ubuntu 26.04 is required.** The install script will exit immediately if run on any other OS or version.
 
 ## Install
 
