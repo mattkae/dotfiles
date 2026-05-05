@@ -75,11 +75,17 @@ command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 info "Installing development dependencies from archive..."
 sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep -y
 
-# sudo snap install clion --classic
-# command -v snap &>/dev/null && sudo snap install code --classic
-
 info "Installing bun..."
 curl -fsSL https://bun.sh/install | bash
+
+info "Installing Flutter..."
+FLUTTER_VERSION="3.27.4"
+FLUTTER_TARBALL="flutter_linux_${FLUTTER_VERSION}-stable.tar.xz"
+FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${FLUTTER_TARBALL}"
+mkdir -p ~/.local/share
+curl -L "$FLUTTER_URL" -o "/tmp/${FLUTTER_TARBALL}"
+tar -C ~/.local/share -xf "/tmp/${FLUTTER_TARBALL}"
+rm "/tmp/${FLUTTER_TARBALL}"
 
 sudo apt install -y openssh-server
 sudo systemctl enable ssh

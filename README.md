@@ -17,27 +17,42 @@ repository, so this is more of a rolling release than anything.
 ![image](image.png)
 
 ## Software
-- [swaylock](https://github.com/swaywm/swaylock) for lockscreen
-- [swaybg](https://github.com/swaywm/swaybg) for wallpaper
-- [swaync](https://github.com/ErikReider/SwayNotificationCenter) for notifications
-- [wofi](https://github.com/SimplyCEO/wofi): for launcher
-- [waybar](https://github.com/Alexays/Waybar) for top panel
-- [kitty](https://sw.kovidgoyal.net/kitty/) for terminal
-- [wlogout](https://github.com/ArtsyMacaw/wlogout) for logout
-- [fish](https://fishshell.com/) for shell
-- [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish) for fish shell framework
-- [bobthefish](https://github.com/oh-my-fish/theme-bobthefish) for fish theming
-- [grimshot](https://man.archlinux.org/man/grimshot.1.en) for screenshots
-- [nm-connection-manager](https://wiki.gnome.org/Projects/NetworkManager) for network control
-- [bat](https://github.com/sharkdp/bat) for better `cat`
-- [fdfind](https://github.com/sharkdp/fd) for better `find`
-- [newsboat](https://github.com/newsboat/newsboat) for RSS reading
-- [pamixer](https://github.com/cdemoulins/pamixer) for volume adjustment
-- [brightnessctl](https://github.com/Hummer12007/brightnessctl) for brightness
-  management
-- [wl-clipboard](https://github.com/bugaevc/wl-clipboard) for copy
-- [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol) for sound control
-- [nautilus](https://gitlab.gnome.org/GNOME/nautilus) for file management
+
+### Desktop
+- [miracle-wm](https://github.com/miracle-wm-org/miracle-wm) — Wayland compositor / window manager
+- [swaylock](https://github.com/swaywm/swaylock) — lockscreen
+- [swaync](https://github.com/ErikReider/SwayNotificationCenter) — notifications
+- [wofi](https://github.com/SimplyCEO/wofi) — launcher
+- [waybar](https://github.com/Alexays/Waybar) — top panel
+- [kitty](https://sw.kovidgoyal.net/kitty/) — terminal
+- [wlogout](https://github.com/ArtsyMacaw/wlogout) — logout screen
+- [fish](https://fishshell.com/) — shell
+- [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish) — fish shell framework
+- [bobthefish](https://github.com/oh-my-fish/theme-bobthefish) — fish prompt theme
+- [grimshot](https://man.archlinux.org/man/grimshot.1.en) — screenshots
+- [slurp](https://github.com/emersion/slurp) — region selection for screenshots
+- [nm-connection-manager](https://wiki.gnome.org/Projects/NetworkManager) — network control
+- [bat](https://github.com/sharkdp/bat) — better `cat`
+- [fdfind](https://github.com/sharkdp/fd) — better `find`
+- [eza](https://github.com/eza-community/eza) — better `ls`
+- [pamixer](https://github.com/cdemoulins/pamixer) — volume adjustment
+- [brightnessctl](https://github.com/Hummer12007/brightnessctl) — brightness management
+- [wl-clipboard](https://github.com/bugaevc/wl-clipboard) — clipboard for Wayland
+- [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol) — sound control
+- [nautilus](https://gitlab.gnome.org/GNOME/nautilus) — file manager
+- [playerctl](https://github.com/altdesktop/playerctl) — media player control
+- [fastfetch](https://github.com/fastfetch-cli/fastfetch) — system info display
+- [Bibata Modern Classic](https://github.com/ful1e5/Bibata_Cursor) — cursor theme
+
+### Development
+- [Rust](https://www.rust-lang.org/) — via rustup
+- [Go](https://go.dev/) — via apt
+- [pyenv](https://github.com/pyenv/pyenv) — Python version manager
+- [clang / clangd](https://clang.llvm.org/) — C/C++ compiler and language server
+- [cmake](https://cmake.org/) — build system
+- [ripgrep](https://github.com/BurntSushi/ripgrep) — fast grep
+- [bun](https://bun.sh/) — JavaScript runtime and package manager
+- [Flutter](https://flutter.dev/) — cross-platform UI SDK
 
 ## Fonts
 - [Iosevka](https://github.com/be5invis/Iosevka)
