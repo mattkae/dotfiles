@@ -15,6 +15,7 @@ print_help() {
   echo ""
   echo "Options:"
   echo "  --yes                   Skip confirmation prompt"
+  echo "  --force                 Reinstall everything, ignoring 'already installed' checks"
   echo "  --help                  Show this help message and exit"
 }
 
@@ -23,6 +24,9 @@ for arg in "$@"; do
   case $arg in
     --yes)
       YES=true
+      ;;
+    --force)
+      export FORCE=true
       ;;
     --help)
       print_help
@@ -50,44 +54,69 @@ else
 fi
 
 info "Ensuring curl installation..."
-sudo apt install -y curl
+apt_install_missing curl
 
 info "Adding miracle-wm PPAs..."
-sudo add-apt-repository ppa:mir-team/dev -y
-sudo add-apt-repository ppa:matthew-kosarek/miracle-wm -y
-sudo apt update
+NEED_APT_UPDATE=false
+add_ppa_if_missing() {
+  if ! $FORCE && grep -rq "$1" /etc/apt/sources.list.d/ 2>/dev/null; then
+    info "PPA $1 already added, skipping."
+    return
+  fi
+  sudo add-apt-repository -y --no-update "ppa:$1"
+  NEED_APT_UPDATE=true
+}
+add_ppa_if_missing "mir-team/dev"
+add_ppa_if_missing "matthew-kosarek/miracle-wm"
+if $NEED_APT_UPDATE; then
+  sudo apt update
+fi
 
 info "Installing rust..."
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+if $FORCE || ! has_cmd cargo; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+else
+  info "Rust already installed, skipping."
+fi
 . "$HOME/.cargo/env"
 
 . $PWD/scripts/assets.sh
 
 info "Installing miracle-wm..."
-sudo apt install miracle-wm -y
+apt_install_missing miracle-wm
 
 info "Installing applications dependencies from archive..."
-sudo apt -y install atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol nautilus eza playerctl fastfetch
+apt_install_missing atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol nautilus eza playerctl fastfetch
 command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 
 . $PWD/scripts/fish.sh
 
 info "Installing development dependencies from archive..."
-sudo apt install cmake pkg-config golang pyenv clang clangd net-tools ripgrep -y
+apt_install_missing cmake pkg-config golang pyenv clang clangd net-tools ripgrep
 
 info "Installing bun..."
-curl -fsSL https://bun.sh/install | bash
+if $FORCE || { ! has_cmd bun && [ ! -x "$HOME/.bun/bin/bun" ]; }; then
+  curl -fsSL https://bun.sh/install | bash
+else
+  info "bun already installed, skipping."
+fi
 
 info "Installing Flutter..."
 FLUTTER_VERSION="3.27.4"
-FLUTTER_TARBALL="flutter_linux_${FLUTTER_VERSION}-stable.tar.xz"
-FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${FLUTTER_TARBALL}"
-mkdir -p ~/.local/share
-curl -L "$FLUTTER_URL" -o "/tmp/${FLUTTER_TARBALL}"
-tar -C ~/.local/share -xf "/tmp/${FLUTTER_TARBALL}"
-rm "/tmp/${FLUTTER_TARBALL}"
+FLUTTER_DIR="$HOME/.local/share/flutter"
+if ! $FORCE && grep -qx "$FLUTTER_VERSION" "$FLUTTER_DIR/version" 2>/dev/null; then
+  info "Flutter $FLUTTER_VERSION already installed, skipping."
+else
+  FLUTTER_TARBALL="flutter_linux_${FLUTTER_VERSION}-stable.tar.xz"
+  FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${FLUTTER_TARBALL}"
+  mkdir -p ~/.local/share
+  rm -rf "$FLUTTER_DIR"
+  curl -L "$FLUTTER_URL" -o "/tmp/${FLUTTER_TARBALL}"
+  tar -C ~/.local/share -xf "/tmp/${FLUTTER_TARBALL}"
+  rm "/tmp/${FLUTTER_TARBALL}"
+fi
 
-sudo apt install -y openssh-server
+apt_install_missing openssh-server
 sudo systemctl enable ssh
 systemctl is-active --quiet systemd 2>/dev/null && sudo systemctl start ssh || true
 
@@ -135,10 +164,14 @@ cp "config/newsboat/config" "$HOME/.config/.newsboat/"
 
 info "Building the WebAssembly plugin..."
 PREVIOUS_DIR=$(pwd)
-rustup target add wasm32-wasip1
+if ! rustup target list --installed | grep -q wasm32-wasip1; then
+  rustup target add wasm32-wasip1
+fi
 cd config/miracle-wm/matts-config
-sudo apt install -y build-essential libclang-dev libmircore-dev
-cargo clean
+apt_install_missing build-essential libclang-dev libmircore-dev
+if $FORCE; then
+  cargo clean
+fi
 cargo build --target wasm32-wasip1 --release
 cd "$PREVIOUS_DIR"
 

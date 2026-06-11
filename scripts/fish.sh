@@ -12,7 +12,7 @@ else
     info "Oh My Fish already installed, skipping."
 fi
 
-info "Installing bobthefish..."
+BOB_DIR="$HOME/.local/share/omf/themes/bobthefish"
 if [ ! -d "$BOB_DIR" ]; then
     info "Installing bobthefish theme..."
     fish -c "omf install bobthefish"

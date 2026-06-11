@@ -3,7 +3,7 @@
 set -e
 
 info "Installing xdg-desktop-portal-wlr from apt..."
-sudo apt install -y xdg-desktop-portal-wlr slurp
+apt_install_missing xdg-desktop-portal-wlr slurp
 
 info "Copying xdg-desktop-portal-wlr config..."
 sudo mkdir -p /etc/xdg/xdg-desktop-portal-wlr
