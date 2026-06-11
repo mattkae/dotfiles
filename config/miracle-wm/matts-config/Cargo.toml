@@ -7,5 +7,4 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
-miracle-plugin = { version = "0.0.8", features = ["configure"]}
-
+miracle-plugin = { version = "0.0.13", features = ["configure"]}

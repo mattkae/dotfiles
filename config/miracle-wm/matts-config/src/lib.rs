@@ -1,11 +1,14 @@
 use miracle_plugin::{
     Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
-    config::{BorderConfig, Configuration, CursorConfiguration, CursorFocusMode, CustomKeyAction, Gaps, StartupApp},
+    config::{
+        BorderConfig, Configuration, CursorConfiguration, CursorFocusMode, CustomKeyAction, Gaps,
+        StartupApp,
+    },
     container::{Container, LayoutScheme},
     core::Rect,
     plugin::Plugin,
-    window::WindowInfo,
+    window::Window,
 };
 use std::collections::HashMap;
 
@@ -109,7 +112,7 @@ impl Plugin for MyPlugin {
             in_systemd_scope: true,
         });
         startup_apps.push(StartupApp {
-            command: "/usr/libexec/xdg-desktop-portal-wlr --replace".to_string(),
+            command: "/usr/libexec/xdg-desktop-portal --replace".to_string(),
             restart_on_death: false,
             no_startup_id: false,
             should_halt_compositor_on_death: false,
@@ -128,9 +131,9 @@ impl Plugin for MyPlugin {
             focus_color: "0x50fa7bff".to_string(),
         });
 
-        config.cursor = Some(CursorConfiguration{
+        config.cursor = Some(CursorConfiguration {
             focus_mode: Some(CursorFocusMode::Hover),
-            scale: None
+            scale: None,
         });
 
         Some(config)
@@ -139,7 +142,7 @@ impl Plugin for MyPlugin {
     fn window_open_animation(
         &mut self,
         data: &AnimationFrameData,
-        window: &WindowInfo,
+        window: &Window,
     ) -> Option<AnimationFrameResult> {
         let container = window.container()?;
         let direction = slide_direction_for_container(&container);
@@ -158,7 +161,7 @@ impl Plugin for MyPlugin {
     fn window_close_animation(
         &mut self,
         data: &AnimationFrameData,
-        window: &WindowInfo,
+        window: &Window,
     ) -> Option<AnimationFrameResult> {
         let direction = self.window_directions.get(&window.id())?;
 
