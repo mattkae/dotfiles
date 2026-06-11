@@ -24,6 +24,7 @@ repository, so this is more of a rolling release than anything.
 - [swaync](https://github.com/ErikReider/SwayNotificationCenter) — notifications
 - [wofi](https://github.com/SimplyCEO/wofi) — launcher
 - [waybar](https://github.com/Alexays/Waybar) — top panel
+- [swww](https://github.com/LGFae/swww) — animated wallpaper daemon (rotates the background)
 - [kitty](https://sw.kovidgoyal.net/kitty/) — terminal
 - [wlogout](https://github.com/ArtsyMacaw/wlogout) — logout screen
 - [fish](https://fishshell.com/) — shell
@@ -92,7 +93,7 @@ Options:
 ## Directories
 - `~/.local/bin`: local scripts
 - `~/.local/src`: local source projects
-- `~/.local/share/wallpapers`: images for background and lockscreen
+- `~/.local/share/wallpapers`: the lockscreen image, plus a `rotation/` set that the background cycles through
 
 ## Configurations
 The primary configuration is `~/.config/miracle-wm/config.yaml`. Users may place
@@ -101,3 +102,6 @@ For example, I run `xdg-desktop-portal-wlr` there so that screensharing works.
 
 ## Fish
 - Users may add custom fish configuration in `~/.config/fish/user.sh`.
+
+## Credits
+- Rotating 4K wallpapers come from [aynp/dracula-wallpapers](https://github.com/aynp/dracula-wallpapers) (the `Art/4k` collection).

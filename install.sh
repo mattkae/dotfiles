@@ -80,6 +80,8 @@ else
 fi
 . "$HOME/.cargo/env"
 
+. $PWD/scripts/swww.sh
+
 . $PWD/scripts/assets.sh
 
 info "Installing miracle-wm..."

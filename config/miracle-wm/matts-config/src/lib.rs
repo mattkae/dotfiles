@@ -98,7 +98,7 @@ impl Plugin for MyPlugin {
             in_systemd_scope: true,
         });
         startup_apps.push(StartupApp {
-            command: "~/.local/bin/launch-swaybg.sh".to_string(),
+            command: "~/.local/bin/launch-swww.sh".to_string(),
             restart_on_death: false,
             no_startup_id: false,
             should_halt_compositor_on_death: false,
