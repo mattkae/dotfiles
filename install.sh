@@ -3,7 +3,7 @@
 . scripts/_meta.sh
 
 UBUNTU_VERSION=$(lsb_release -rs 2>/dev/null)
-if [[ "$UBUNTU_VERSION" != "26.04" ]]; then
+if [[ "$UBUNTU_VERSION" != "26.04" && "$UBUNTU_VERSION" != "25.10" ]]; then
   echo "ERROR: This script requires Ubuntu 26.04. Detected: $(lsb_release -ds 2>/dev/null || echo 'unknown')"
   exit 1
 fi
@@ -103,21 +103,6 @@ else
   info "bun already installed, skipping."
 fi
 
-info "Installing Flutter..."
-FLUTTER_VERSION="3.27.4"
-FLUTTER_DIR="$HOME/.local/share/flutter"
-if ! $FORCE && grep -qx "$FLUTTER_VERSION" "$FLUTTER_DIR/version" 2>/dev/null; then
-  info "Flutter $FLUTTER_VERSION already installed, skipping."
-else
-  FLUTTER_TARBALL="flutter_linux_${FLUTTER_VERSION}-stable.tar.xz"
-  FLUTTER_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${FLUTTER_TARBALL}"
-  mkdir -p ~/.local/share
-  rm -rf "$FLUTTER_DIR"
-  curl -L "$FLUTTER_URL" -o "/tmp/${FLUTTER_TARBALL}"
-  tar -C ~/.local/share -xf "/tmp/${FLUTTER_TARBALL}"
-  rm "/tmp/${FLUTTER_TARBALL}"
-fi
-
 apt_install_missing openssh-server
 sudo systemctl enable ssh
 systemctl is-active --quiet systemd 2>/dev/null && sudo systemctl start ssh || true
@@ -182,12 +167,12 @@ cp -rf "config/miracle-wm" "$HOME/.config"
 
 info "Copying local bin files..."
 mkdir -p ~/.local/bin
-cp -rf local/bin/* ~/.local/bin/ 
+cp -rf local/bin/* ~/.local/bin/
 
 info "Copying local share files..."
 mkdir -p ~/.local/share
 mkdir -p ~/.local/share/icons/default
-cp -rf local/share/* ~/.local/share/ 
+cp -rf local/share/* ~/.local/share/
 
 info "Copying Xresources..."
 cp .Xresources ~/.Xresources
@@ -204,6 +189,5 @@ info "Setting cursor for snaps..."
 if command -v snap &>/dev/null; then
   for plug in $(snap connections | grep gtk-common-themes:icon-themes | awk '{print $2}'); do sudo snap connect ${plug} bibata-all-cursor:icon-themes; done
 fi
-  
 
 success "Installation complete"
