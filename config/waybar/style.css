@@ -1,8 +1,8 @@
 /* Keyframes */
 @keyframes blink-critical {
-	to {
-		background-color: @critical;
-	}
+    to {
+        background-color: @critical;
+    }
 }
 
 /* Colors (Dracula) */
@@ -37,27 +37,27 @@
 
 /* Reset all styles */
 * {
-	border: none;
-	border-radius: 0;
-	min-height: 0;
-	margin: 0;
-	padding: 0;
-	box-shadow: none;
-	text-shadow: none;
-	icon-shadow: none;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    text-shadow: none;
+    icon-shadow: none;
 }
 
 /* The whole bar */
 #waybar {
-	background: rgba(40, 42, 54, 0.3); /* Dracula background */
-	color: @white;
-  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
-	font-size: 10pt;
-  border-radius: 4pt;
+    background: rgba(40, 42, 54, 0.3); /* Dracula background */
+    color: @white;
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-size: 10pt;
+    border-radius: 4pt;
 }
 
-#waybar>box{
-	padding: 8pt;
+#waybar > box {
+    padding: 8pt;
 }
 
 /* Each module */
@@ -76,8 +76,8 @@
 #disk,
 #user,
 #mpris {
-	padding-left: 8pt;
-	padding-right: 8pt;
+    padding-left: 8pt;
+    padding-right: 8pt;
 }
 
 /* Critical state animation */
@@ -86,11 +86,11 @@
 #cpu.critical,
 #temperature.critical,
 #battery.critical.discharging {
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-name: blink-critical;
-	animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: blink-critical;
+    animation-duration: 1s;
 }
 
 /* Warnings */
@@ -99,86 +99,86 @@
 #cpu.warning,
 #temperature.warning,
 #battery.warning.discharging {
-	color: @warning;
+    color: @warning;
 }
 
 /* Sway mode */
 #mode {
-	color: @white;
-	background: @mode;
+    color: @white;
+    background: @mode;
 }
 
 /* Workspaces */
 #workspaces button {
-	padding-left: 2pt;
-	padding-right: 2pt;
-	color: @white;
-	background: @unfocused;
-  margin-right: 2pt;
-  border-radius: 2pt;
+    padding-left: 2pt;
+    padding-right: 2pt;
+    color: @white;
+    background: @unfocused;
+    margin-right: 2pt;
+    border-radius: 2pt;
 }
 
 /* Visible (inactive screen) */
 #workspaces button.visible {
-	color: @white;
-	background: @inactive;
+    color: @white;
+    background: @inactive;
 }
 
 /* Focused */
 #workspaces button.focused {
-	color: @black;
-	background: @focused;
+    color: @black;
+    background: @focused;
 }
 
 /* Urgent */
 #workspaces button.urgent {
-	color: @black;
-	background: @warning;
+    color: @black;
+    background: @warning;
 }
 
 /* Hover */
 #workspaces button:hover {
-	background: @black;
-	color: @white;
+    background: @black;
+    color: @white;
 }
 
 /* Window name */
 #window {
-	margin-right: 35pt;
-	margin-left: 35pt;
+    margin-right: 35pt;
+    margin-left: 35pt;
 }
 
 /* Individual modules */
 #pulseaudio {
-	background: @sound;
-	color: @white;
-  padding-left: 8pt;
-  border-radius: 2pt 0 0 2pt;
+    background: @sound;
+    color: @white;
+    padding-left: 8pt;
+    border-radius: 2pt 0 0 2pt;
 }
 
 #network {
-	background: @network;
-	color: @black;
+    background: @network;
+    color: @black;
 }
 
 #memory {
-	background: @memory;
-	color: @black;
+    background: @memory;
+    color: @black;
 }
 
 #cpu {
-	background: @cpu;
-	color: @black;
+    background: @cpu;
+    color: @black;
 }
 
 #temperature {
-	background: @temp;
-	color: @black;
+    background: @temp;
+    color: @black;
 }
 
 #battery {
-	background: @battery;
-	color: @white;
+    background: @battery;
+    color: @white;
 }
 
 #tray {
@@ -189,7 +189,6 @@
     color: @white;
     padding-right: 8pt;
     padding-left: 4pt;
-    border-radius: 0pt 2pt 2pt 0pt;
 }
 
 #custom-media {
@@ -198,12 +197,28 @@
     padding-right: 8pt;
 }
 
+/* Square background around the bell, icon centered */
+#custom-swaync {
+    color: @white;
+    background: @red;
+    border-radius: 0pt 2pt 2pt 0pt;
+    min-width: 24pt;
+}
+
+/* Unread notifications -> red bell */
+#custom-swaync.notification,
+#custom-swaync.dnd-notification,
+#custom-swaync.inhibited-notification,
+#custom-swaync.dnd-inhibited-notification {
+    color: @red;
+}
+
 #clock.date {
-	background: rgba(0, 0, 0, 0);
-	color: @white;
+    background: rgba(0, 0, 0, 0);
+    color: @white;
 }
 
 #clock.time {
-	background: rgba(0, 0, 0, 0);
-	color: @white;
+    background: rgba(0, 0, 0, 0);
+    color: @white;
 }
