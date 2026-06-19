@@ -205,12 +205,12 @@
     min-width: 24pt;
 }
 
-/* Unread notifications -> red bell */
+/* Unread notifications -> red bell on white, inverted from default */
 #custom-swaync.notification,
 #custom-swaync.dnd-notification,
 #custom-swaync.inhibited-notification,
 #custom-swaync.dnd-inhibited-notification {
-    color: @red;
+    color: @yellow;
 }
 
 #clock.date {
