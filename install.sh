@@ -163,7 +163,9 @@ cargo build --target wasm32-wasip1 --release
 cd "$PREVIOUS_DIR"
 
 info "Copying miracle-wm config..."
-cp -rf "config/miracle-wm" "$HOME/.config"
+mkdir -p "$HOME/.config/miracle-wm/plugins"
+cp "config/miracle-wm/config.yaml" "$HOME/.config/miracle-wm/"
+cp "config/miracle-wm/matts-config/target/wasm32-wasip1/release/matts_config.wasm" "$HOME/.config/miracle-wm/plugins/"
 
 info "Copying local bin files..."
 mkdir -p ~/.local/bin
