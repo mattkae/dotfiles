@@ -5,7 +5,9 @@ my (corporate-ish) development life that largely revolves around C++, web, pytho
 and other types of development.
 
 Some dependencies that are not packaged in the Ubuntu archive are built from
-source here.
+source here. The miracle-wm config plugin is **not** built locally — it is
+compiled by a GitHub workflow and downloaded as a prebuilt binary at install time
+(see [Configurations](#configurations)).
 
 I very much enjoy Dracula theming, so that's what you'll be getting if you
 install this 🧛
@@ -99,6 +101,14 @@ Options:
 The primary configuration is `~/.config/miracle-wm/config.yaml`. Users may place
 any machine-specific configuration in `~/config/miracle-wm/user-config.yaml`.
 For example, I run `xdg-desktop-portal-wlr` there so that screensharing works.
+
+The compositor's behavior is driven by a WebAssembly plugin built from the Rust
+crate in `config/miracle-wm/matts-config`. Rather than compiling it locally, the
+[`Build` workflow](.github/workflows/build.yml) compiles it on every push to
+`master` and publishes `matts_config.wasm` as the `nightly`
+[release](https://github.com/mattkae/dotfiles/releases/tag/nightly) asset.
+`install.sh` downloads that prebuilt binary into
+`~/.config/miracle-wm/plugins/matts_config.wasm`.
 
 ## Fish
 - Users may add custom fish configuration in `~/.config/fish/user.sh`.

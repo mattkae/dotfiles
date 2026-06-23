@@ -149,23 +149,13 @@ info "Copying newsboat config..."
 mkdir -p "$HOME/.config/.newsboat"
 cp "config/newsboat/config" "$HOME/.config/.newsboat/"
 
-info "Building the WebAssembly plugin..."
-PREVIOUS_DIR=$(pwd)
-if ! rustup target list --installed | grep -q wasm32-wasip1; then
-  rustup target add wasm32-wasip1
-fi
-cd config/miracle-wm/matts-config
-apt_install_missing build-essential libclang-dev libmircore-dev
-if $FORCE; then
-  cargo clean
-fi
-cargo build --target wasm32-wasip1 --release
-cd "$PREVIOUS_DIR"
-
 info "Copying miracle-wm config..."
 mkdir -p "$HOME/.config/miracle-wm/plugins"
 cp "config/miracle-wm/config.yaml" "$HOME/.config/miracle-wm/"
-cp "config/miracle-wm/matts-config/target/wasm32-wasip1/release/matts_config.wasm" "$HOME/.config/miracle-wm/plugins/"
+
+info "Downloading the latest WebAssembly plugin..."
+curl -fSL -o "$HOME/.config/miracle-wm/plugins/matts_config.wasm" \
+  https://github.com/mattkae/dotfiles/releases/download/nightly/matts_config.wasm
 
 info "Copying local bin files..."
 mkdir -p ~/.local/bin
