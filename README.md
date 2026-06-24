@@ -84,11 +84,20 @@ Next, run the `install` script:
 ./install.sh [OPTIONS]
 ```
 
-The script always installs dependencies, miracle-wm, fonts, and screenshare support. Optional flags:
+Run with no flags to get an interactive menu (a `gum`-powered TUI, or plain prompts if
+`gum` is unavailable) that lets you check/uncheck the optional feature groups before the
+install begins. Desktop config, fonts, themes and the swww/Rust build are always installed.
+
+Optional flags (passing any feature flag, or `--yes`, skips the menu):
 
 ```
 Options:
-  --yes                   Skip confirmation prompt
+  --yes                   Skip the interactive menu / confirmation prompt
+  --force                 Reinstall everything, ignoring 'already installed' checks
+  --miracle               Install the miracle-wm PPAs + package (default)
+  --no-miracle            Skip the miracle-wm PPAs + package (e.g. local build)
+  --dev                   Install developer tooling (default)
+  --no-dev                Skip developer tooling (bun, openssh, build tools, languages)
   --help                  Show this help message and exit
 ```
 

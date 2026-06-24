@@ -10,13 +10,25 @@ fi
 
 YES=false
 
+# Optional feature groups (both default ON). Toggled by flags or the interactive TUI.
+INSTALL_MIRACLE=true
+INSTALL_DEV=true
+# Tracks whether the user passed any feature flag explicitly; if so we skip the TUI.
+FEATURE_FLAG_SET=false
+
 print_help() {
   echo "Usage: $0 [OPTIONS]"
   echo ""
   echo "Options:"
-  echo "  --yes                   Skip confirmation prompt"
+  echo "  --yes                   Skip the interactive menu / confirmation prompt"
   echo "  --force                 Reinstall everything, ignoring 'already installed' checks"
+  echo "  --miracle               Install the miracle-wm PPAs + package (default)"
+  echo "  --no-miracle            Skip the miracle-wm PPAs + package (e.g. local build)"
+  echo "  --dev                   Install developer tooling (default)"
+  echo "  --no-dev                Skip developer tooling (bun, openssh, build tools, languages)"
   echo "  --help                  Show this help message and exit"
+  echo ""
+  echo "With no --yes and no feature flag, an interactive menu is shown."
 }
 
 # Parse arguments
@@ -27,6 +39,22 @@ for arg in "$@"; do
       ;;
     --force)
       export FORCE=true
+      ;;
+    --miracle)
+      INSTALL_MIRACLE=true
+      FEATURE_FLAG_SET=true
+      ;;
+    --no-miracle)
+      INSTALL_MIRACLE=false
+      FEATURE_FLAG_SET=true
+      ;;
+    --dev)
+      INSTALL_DEV=true
+      FEATURE_FLAG_SET=true
+      ;;
+    --no-dev)
+      INSTALL_DEV=false
+      FEATURE_FLAG_SET=true
       ;;
     --help)
       print_help
@@ -40,36 +68,37 @@ for arg in "$@"; do
   esac
 done
 
-if $YES; then
-    info "Installation of Matt's dotfiles is starting..."
-else
-    read -p "Are you sure that you want to run this? This install could be DESTRUCTIVE to your system. Proceed with caution. (y/n): " choice
-    choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]')
-    if [[ "$choice" == "y" || "$choice" == "yes" ]]; then
-        info "Installation of Matt's dotfiles is starting..."
-    else
-        error "Installation was aborted."
-        exit 0
-    fi
-fi
-
 info "Ensuring curl installation..."
 apt_install_missing curl
 
-info "Adding miracle-wm PPAs..."
-NEED_APT_UPDATE=false
-add_ppa_if_missing() {
-  if ! $FORCE && grep -rq "$1" /etc/apt/sources.list.d/ 2>/dev/null; then
-    info "PPA $1 already added, skipping."
-    return
+if $YES || $FEATURE_FLAG_SET; then
+    info "Installation of Matt's dotfiles is starting..."
+else
+    # Bootstrap gum for the graphical menu; tui.sh falls back to plain prompts if absent.
+    info "Ensuring gum installation for the interactive menu..."
+    apt_install_missing gum || true
+    . $PWD/scripts/tui.sh
+    info "Installation of Matt's dotfiles is starting..."
+fi
+
+if $INSTALL_MIRACLE; then
+  info "Adding miracle-wm PPAs..."
+  NEED_APT_UPDATE=false
+  add_ppa_if_missing() {
+    if ! $FORCE && grep -rq "$1" /etc/apt/sources.list.d/ 2>/dev/null; then
+      info "PPA $1 already added, skipping."
+      return
+    fi
+    sudo add-apt-repository -y --no-update "ppa:$1"
+    NEED_APT_UPDATE=true
+  }
+  add_ppa_if_missing "mir-team/dev"
+  add_ppa_if_missing "matthew-kosarek/miracle-wm"
+  if $NEED_APT_UPDATE; then
+    sudo apt update
   fi
-  sudo add-apt-repository -y --no-update "ppa:$1"
-  NEED_APT_UPDATE=true
-}
-add_ppa_if_missing "mir-team/dev"
-add_ppa_if_missing "matthew-kosarek/miracle-wm"
-if $NEED_APT_UPDATE; then
-  sudo apt update
+else
+  info "Skipping miracle-wm PPAs (--no-miracle)."
 fi
 
 info "Installing rust..."
@@ -84,8 +113,12 @@ fi
 
 . $PWD/scripts/assets.sh
 
-info "Installing miracle-wm..."
-apt_install_missing miracle-wm
+if $INSTALL_MIRACLE; then
+  info "Installing miracle-wm..."
+  apt_install_missing miracle-wm
+else
+  info "Skipping miracle-wm package (--no-miracle)."
+fi
 
 info "Installing applications dependencies from archive..."
 apt_install_missing atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol nautilus eza playerctl fastfetch
@@ -93,19 +126,23 @@ command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 
 . $PWD/scripts/fish.sh
 
-info "Installing development dependencies from archive..."
-apt_install_missing cmake pkg-config golang pyenv clang clangd net-tools ripgrep
+if $INSTALL_DEV; then
+  info "Installing development dependencies from archive..."
+  apt_install_missing cmake pkg-config golang pyenv clang clangd net-tools ripgrep
 
-info "Installing bun..."
-if $FORCE || { ! has_cmd bun && [ ! -x "$HOME/.bun/bin/bun" ]; }; then
-  curl -fsSL https://bun.sh/install | bash
+  info "Installing bun..."
+  if $FORCE || { ! has_cmd bun && [ ! -x "$HOME/.bun/bin/bun" ]; }; then
+    curl -fsSL https://bun.sh/install | bash
+  else
+    info "bun already installed, skipping."
+  fi
+
+  apt_install_missing openssh-server
+  sudo systemctl enable ssh
+  systemctl is-active --quiet systemd 2>/dev/null && sudo systemctl start ssh || true
 else
-  info "bun already installed, skipping."
+  info "Skipping developer tooling (--no-dev)."
 fi
-
-apt_install_missing openssh-server
-sudo systemctl enable ssh
-systemctl is-active --quiet systemd 2>/dev/null && sudo systemctl start ssh || true
 
 . $PWD/scripts/screenshare.sh
 
