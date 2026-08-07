@@ -7,4 +7,4 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
-miracle-plugin = { version = "0.1.0", features = ["configure"]}
+miracle-plugin = { git = "https://github.com/miracle-wm-org/miracle-wm", branch = "develop", features = ["configure"] }
