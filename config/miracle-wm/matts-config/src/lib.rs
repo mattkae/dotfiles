@@ -1,11 +1,11 @@
 use miracle_plugin::{
-    Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
     config::{BorderConfig, Configuration, CustomKeyAction, Gaps, StartupApp},
     container::{Container, LayoutScheme},
     core::Rect,
     plugin::Plugin,
     window::Window,
+    Key, Modifier,
 };
 use std::collections::HashMap;
 
@@ -21,23 +21,12 @@ impl Plugin for MyPlugin {
         config.primary_modifier = Some(miracle_plugin::Modifier::Meta);
 
         let mut custom_actions: Vec<CustomKeyAction> = vec![];
-        custom_actions.push(CustomKeyAction {
-            action: miracle_plugin::BindingAction::Down,
-            key: Key("d".to_string()),
-            modifiers: vec![Modifier::Primary],
-            command: "wofi --show=drun --allow-images".to_string(),
-        });
+
         custom_actions.push(CustomKeyAction {
             action: miracle_plugin::BindingAction::Down,
             key: Key("S".to_string()),
             modifiers: vec![Modifier::Primary],
             command: "~/.local/bin/screenshot.sh".to_string(),
-        });
-        custom_actions.push(CustomKeyAction {
-            action: miracle_plugin::BindingAction::Down,
-            key: Key("L".to_string()),
-            modifiers: vec![Modifier::Primary],
-            command: "swaylock".to_string(),
         });
         custom_actions.push(CustomKeyAction {
             action: miracle_plugin::BindingAction::Down,
@@ -71,12 +60,6 @@ impl Plugin for MyPlugin {
         });
         custom_actions.push(CustomKeyAction {
             action: miracle_plugin::BindingAction::Down,
-            key: Key("E".to_string()),
-            modifiers: vec![Modifier::Primary],
-            command: "wlogout --protocol layer-shell".to_string(),
-        });
-        custom_actions.push(CustomKeyAction {
-            action: miracle_plugin::BindingAction::Down,
             key: Key("M".to_string()),
             modifiers: vec![Modifier::Primary],
             command: "miraclemsg workspace music".to_string(),
@@ -88,28 +71,7 @@ impl Plugin for MyPlugin {
 
         let mut startup_apps: Vec<StartupApp> = vec![];
         startup_apps.push(StartupApp {
-            command: "waybar".to_string(),
-            restart_on_death: false,
-            no_startup_id: false,
-            should_halt_compositor_on_death: false,
-            in_systemd_scope: true,
-        });
-        startup_apps.push(StartupApp {
-            command: "~/.local/bin/launch-swww.sh".to_string(),
-            restart_on_death: false,
-            no_startup_id: false,
-            should_halt_compositor_on_death: false,
-            in_systemd_scope: true,
-        });
-        startup_apps.push(StartupApp {
-            command: "swaync".to_string(),
-            restart_on_death: false,
-            no_startup_id: false,
-            should_halt_compositor_on_death: false,
-            in_systemd_scope: true,
-        });
-        startup_apps.push(StartupApp {
-            command: "/usr/libexec/xdg-desktop-portal --replace".to_string(),
+            command: "graceful-shell".to_string(),
             restart_on_death: false,
             no_startup_id: false,
             should_halt_compositor_on_death: false,
