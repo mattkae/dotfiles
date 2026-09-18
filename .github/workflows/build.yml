@@ -2,7 +2,6 @@ name: Build
 
 on:
   push:
-    branches: [master]
 
 jobs:
   build:
@@ -28,10 +27,24 @@ jobs:
       - name: Build
         run: cargo build --target wasm32-wasip1 --release
 
-      - name: Publish nightly release
+      # master publishes to the "nightly" tag; every other branch gets its own
+      # "nightly-<branch>" tag (slashes replaced with dashes). install.sh uses
+      # the same naming scheme to pick the right wasm for the checked-out branch.
+      - name: Compute release tag
+        id: tag
+        run: |
+          if [ "$GITHUB_REF_NAME" = "master" ]; then
+            echo "tag=nightly" >> "$GITHUB_OUTPUT"
+            echo "name=Nightly Build" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=nightly-${GITHUB_REF_NAME//\//-}" >> "$GITHUB_OUTPUT"
+            echo "name=Nightly Build ($GITHUB_REF_NAME)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: nightly
-          name: Nightly Build
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.name }}
           prerelease: true
           files: config/miracle-wm/matts-config/target/wasm32-wasip1/release/matts_config.wasm

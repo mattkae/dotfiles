@@ -162,21 +162,6 @@ cp -rf "config/kitty" "$HOME/.config/"
 info "Copying fish config..."
 cp -rf "config/fish" "$HOME/.config/"
 
-info "Copying waybar config..."
-cp -rf "config/waybar" "$HOME/.config"
-
-info "Copying swaylock config..."
-cp -rf "config/swaylock" "$HOME/.config"
-
-info "Copying wofi config..."
-cp -rf "config/wofi" "$HOME/.config"
-
-info "Copying wlogout config..."
-cp -rf "config/wlogout" "$HOME/.config"
-
-info "Copying swaync config..."
-cp -rf "config/swaync" "$HOME/.config"
-
 info "Copying gtk config..."
 . ./scripts/gtk.sh
 cp -rf "config/gtk-3.0" "$HOME/.config"
@@ -190,9 +175,32 @@ info "Copying miracle-wm config..."
 mkdir -p "$HOME/.config/miracle-wm/plugins"
 cp "config/miracle-wm/config.yaml" "$HOME/.config/miracle-wm/"
 
-info "Downloading the latest WebAssembly plugin..."
-curl -fSL -o "$HOME/.config/miracle-wm/plugins/matts_config.wasm" \
-  https://github.com/mattkae/dotfiles/releases/download/nightly/matts_config.wasm
+# Each branch publishes its own wasm under the "nightly-<branch>" tag (slashes
+# replaced with dashes); master publishes to plain "nightly". Try the tag for the
+# checked-out branch first and fall back to nightly if it hasn't been built yet.
+GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo master)
+if [[ -z "$GIT_BRANCH" || "$GIT_BRANCH" == "HEAD" || "$GIT_BRANCH" == "master" ]]; then
+  WASM_TAG="nightly"
+else
+  WASM_TAG="nightly-${GIT_BRANCH//\//-}"
+fi
+WASM_DEST="$HOME/.config/miracle-wm/plugins/matts_config.wasm"
+WASM_TMP=$(mktemp)
+download_wasm() {
+  curl -fSL -o "$WASM_TMP" \
+    "https://github.com/mattkae/dotfiles/releases/download/$1/matts_config.wasm"
+}
+info "Downloading the WebAssembly plugin for branch '$GIT_BRANCH' (release '$WASM_TAG')..."
+if ! download_wasm "$WASM_TAG"; then
+  if [[ "$WASM_TAG" != "nightly" ]]; then
+    info "No release found for '$WASM_TAG', falling back to 'nightly'..."
+    download_wasm nightly
+  else
+    error "Failed to download the WebAssembly plugin."
+    exit 1
+  fi
+fi
+mv -f "$WASM_TMP" "$WASM_DEST"
 
 info "Copying local bin files..."
 mkdir -p ~/.local/bin

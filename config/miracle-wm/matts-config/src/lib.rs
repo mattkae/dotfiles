@@ -1,11 +1,11 @@
 use miracle_plugin::{
+    Key, Modifier,
     animation::{AnimationFrameData, AnimationFrameResult},
     config::{BorderConfig, Configuration, CustomKeyAction, Gaps, StartupApp},
     container::{Container, LayoutScheme},
     core::Rect,
     plugin::Plugin,
     window::Window,
-    Key, Modifier,
 };
 use std::collections::HashMap;
 
@@ -22,12 +22,6 @@ impl Plugin for MyPlugin {
 
         let mut custom_actions: Vec<CustomKeyAction> = vec![];
 
-        custom_actions.push(CustomKeyAction {
-            action: miracle_plugin::BindingAction::Down,
-            key: Key("S".to_string()),
-            modifiers: vec![Modifier::Primary],
-            command: "~/.local/bin/screenshot.sh".to_string(),
-        });
         custom_actions.push(CustomKeyAction {
             action: miracle_plugin::BindingAction::Down,
             key: Key("XF86AudioLowerVolume".to_string()),
