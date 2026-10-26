@@ -65,7 +65,7 @@ impl Plugin for MyPlugin {
 
         let mut startup_apps: Vec<StartupApp> = vec![];
         startup_apps.push(StartupApp {
-            command: "graceful-shell".to_string(),
+            command: "moonswing".to_string(),
             restart_on_death: false,
             no_startup_id: false,
             should_halt_compositor_on_death: false,

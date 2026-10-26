@@ -101,6 +101,9 @@ else
   info "Skipping miracle-wm PPAs (--no-miracle)."
 fi
 
+info "Installing moonswing..."
+curl -fsSL https://raw.githubusercontent.com/miracle-wm-org/moonswing/main/install.sh | sh
+
 info "Installing rust..."
 if $FORCE || ! has_cmd cargo; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -121,7 +124,7 @@ else
 fi
 
 info "Installing applications dependencies from archive..."
-apt_install_missing atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol nautilus eza playerctl fastfetch
+apt_install_missing atfs bat fd-find kitty fish papirus-icon-theme pamixer brightnessctl bibata-cursor-theme slurp pavucontrol nautilus eza playerctl fastfetch
 command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 
 . $PWD/scripts/fish.sh
