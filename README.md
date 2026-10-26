@@ -22,25 +22,17 @@ repository, so this is more of a rolling release than anything.
 
 ### Desktop
 - [miracle-wm](https://github.com/miracle-wm-org/miracle-wm) — Wayland compositor / window manager
-- [swaylock](https://github.com/swaywm/swaylock) — lockscreen
-- [swaync](https://github.com/ErikReider/SwayNotificationCenter) — notifications
-- [wofi](https://github.com/SimplyCEO/wofi) — launcher
-- [waybar](https://github.com/Alexays/Waybar) — top panel
-- [swww](https://github.com/LGFae/swww) — animated wallpaper daemon (rotates the background)
+- [moonswing](https://github.com/miracle-wm-org/moonswing) — Desktop environment
 - [kitty](https://sw.kovidgoyal.net/kitty/) — terminal
-- [wlogout](https://github.com/ArtsyMacaw/wlogout) — logout screen
 - [fish](https://fishshell.com/) — shell
 - [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish) — fish shell framework
 - [bobthefish](https://github.com/oh-my-fish/theme-bobthefish) — fish prompt theme
-- [grimshot](https://man.archlinux.org/man/grimshot.1.en) — screenshots
 - [slurp](https://github.com/emersion/slurp) — region selection for screenshots
-- [nm-connection-manager](https://wiki.gnome.org/Projects/NetworkManager) — network control
 - [bat](https://github.com/sharkdp/bat) — better `cat`
 - [fdfind](https://github.com/sharkdp/fd) — better `find`
 - [eza](https://github.com/eza-community/eza) — better `ls`
 - [pamixer](https://github.com/cdemoulins/pamixer) — volume adjustment
 - [brightnessctl](https://github.com/Hummer12007/brightnessctl) — brightness management
-- [wl-clipboard](https://github.com/bugaevc/wl-clipboard) — clipboard for Wayland
 - [pavucontrol](https://gitlab.freedesktop.org/pulseaudio/pavucontrol) — sound control
 - [nautilus](https://gitlab.gnome.org/GNOME/nautilus) — file manager
 - [playerctl](https://github.com/altdesktop/playerctl) — media player control

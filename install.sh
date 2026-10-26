@@ -112,8 +112,6 @@ else
 fi
 . "$HOME/.cargo/env"
 
-. $PWD/scripts/swww.sh
-
 . $PWD/scripts/assets.sh
 
 if $INSTALL_MIRACLE; then
@@ -146,8 +144,6 @@ if $INSTALL_DEV; then
 else
   info "Skipping developer tooling (--no-dev)."
 fi
-
-. $PWD/scripts/screenshare.sh
 
 info "Installing fonts..."
 . $PWD/scripts/jetbrains-mono-nerd.sh
