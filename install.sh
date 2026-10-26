@@ -101,6 +101,9 @@ else
   info "Skipping miracle-wm PPAs (--no-miracle)."
 fi
 
+info "Installing moonswing..."
+curl -fsSL https://raw.githubusercontent.com/miracle-wm-org/moonswing/main/install.sh | sh
+
 info "Installing rust..."
 if $FORCE || ! has_cmd cargo; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -108,8 +111,6 @@ else
   info "Rust already installed, skipping."
 fi
 . "$HOME/.cargo/env"
-
-. $PWD/scripts/swww.sh
 
 . $PWD/scripts/assets.sh
 
@@ -121,7 +122,7 @@ else
 fi
 
 info "Installing applications dependencies from archive..."
-apt_install_missing atfs wofi swaylock bat fd-find kitty network-manager-gnome fish wlogout papirus-icon-theme pamixer brightnessctl sway-notification-center grimshot waybar wl-clipboard bibata-cursor-theme slurp pavucontrol nautilus eza playerctl fastfetch
+apt_install_missing atfs bat fd-find kitty fish papirus-icon-theme pamixer brightnessctl bibata-cursor-theme slurp pavucontrol nautilus eza playerctl fastfetch
 command -v snap &>/dev/null && sudo snap install bibata-all-cursor
 
 . $PWD/scripts/fish.sh
@@ -144,8 +145,6 @@ else
   info "Skipping developer tooling (--no-dev)."
 fi
 
-. $PWD/scripts/screenshare.sh
-
 info "Installing fonts..."
 . $PWD/scripts/jetbrains-mono-nerd.sh
 . $PWD/scripts/fonts.sh
@@ -162,21 +161,6 @@ cp -rf "config/kitty" "$HOME/.config/"
 info "Copying fish config..."
 cp -rf "config/fish" "$HOME/.config/"
 
-info "Copying waybar config..."
-cp -rf "config/waybar" "$HOME/.config"
-
-info "Copying swaylock config..."
-cp -rf "config/swaylock" "$HOME/.config"
-
-info "Copying wofi config..."
-cp -rf "config/wofi" "$HOME/.config"
-
-info "Copying wlogout config..."
-cp -rf "config/wlogout" "$HOME/.config"
-
-info "Copying swaync config..."
-cp -rf "config/swaync" "$HOME/.config"
-
 info "Copying gtk config..."
 . ./scripts/gtk.sh
 cp -rf "config/gtk-3.0" "$HOME/.config"
@@ -190,9 +174,32 @@ info "Copying miracle-wm config..."
 mkdir -p "$HOME/.config/miracle-wm/plugins"
 cp "config/miracle-wm/config.yaml" "$HOME/.config/miracle-wm/"
 
-info "Downloading the latest WebAssembly plugin..."
-curl -fSL -o "$HOME/.config/miracle-wm/plugins/matts_config.wasm" \
-  https://github.com/mattkae/dotfiles/releases/download/nightly/matts_config.wasm
+# Each branch publishes its own wasm under the "nightly-<branch>" tag (slashes
+# replaced with dashes); master publishes to plain "nightly". Try the tag for the
+# checked-out branch first and fall back to nightly if it hasn't been built yet.
+GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo master)
+if [[ -z "$GIT_BRANCH" || "$GIT_BRANCH" == "HEAD" || "$GIT_BRANCH" == "master" ]]; then
+  WASM_TAG="nightly"
+else
+  WASM_TAG="nightly-${GIT_BRANCH//\//-}"
+fi
+WASM_DEST="$HOME/.config/miracle-wm/plugins/matts_config.wasm"
+WASM_TMP=$(mktemp)
+download_wasm() {
+  curl -fSL -o "$WASM_TMP" \
+    "https://github.com/mattkae/dotfiles/releases/download/$1/matts_config.wasm"
+}
+info "Downloading the WebAssembly plugin for branch '$GIT_BRANCH' (release '$WASM_TAG')..."
+if ! download_wasm "$WASM_TAG"; then
+  if [[ "$WASM_TAG" != "nightly" ]]; then
+    info "No release found for '$WASM_TAG', falling back to 'nightly'..."
+    download_wasm nightly
+  else
+    error "Failed to download the WebAssembly plugin."
+    exit 1
+  fi
+fi
+mv -f "$WASM_TMP" "$WASM_DEST"
 
 info "Copying local bin files..."
 mkdir -p ~/.local/bin
