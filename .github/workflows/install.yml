@@ -8,27 +8,28 @@ on:
 
 jobs:
   install:
-    runs-on: ubuntu-latest
-    container:
-      image: ubuntu:25.10
-      options: --privileged
+    # Moonswing needs a running snapd, so use a VM rather than a job container.
+    runs-on: ubuntu-26.04
 
     steps:
-      - name: Install container prerequisites
+      - name: Install prerequisites
         run: |
-          apt-get update -y
-          DEBIAN_FRONTEND=noninteractive apt-get install -y \
+          sudo apt-get update -y
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y \
             sudo git curl software-properties-common \
-            xvfb dbus-x11
+            snapd xvfb xauth dbus-x11
+
+      - name: Wait for Snap readiness
+        run: |
+          sudo systemctl start snapd.socket
+          sudo timeout 180 snap wait system seed.loaded
 
       - uses: actions/checkout@v4
 
-      - name: Start virtual display
-        run: |
-          Xvfb :99 -screen 0 1024x768x24 &
-          echo "DISPLAY=:99" >> $GITHUB_ENV
-
       - name: Run install.sh
-        run: dbus-run-session -- bash install.sh --yes
+        run: xvfb-run --auto-servernum dbus-run-session -- bash install.sh --yes
         env:
           DEBIAN_FRONTEND: noninteractive
+
+      - name: Verify moonswing installation
+        run: snap list moonswing
